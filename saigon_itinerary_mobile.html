@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saigon Itinerary Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #dropdown {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            background: white;
+            padding: 5px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+<div id="dropdown">
+    <select id="placeSelect">
+        <option value="all">See All</option>
+        <option value="Nicecy Boutique Hotel">Nicecy Boutique Hotel</option>
+<option value="Man Moi">Man Moi</option>
+<option value="Pizza 4Ps">Pizza 4Ps</option>
+<option value="Bo Ne Ba Nui">Bo Ne Ba Nui</option>
+<option value="Oc Oanh">Oc Oanh</option>
+<option value="Taco Del Sol">Taco Del Sol</option>
+<option value="Bep Me In">Bep Me In</option>
+<option value="Com Tam Ba Ghien ">Com Tam Ba Ghien </option>
+<option value="Ngam Café">Ngam Café</option>
+<option value="Ban Xeo 46A">Ban Xeo 46A</option>
+<option value="Banh Mi Huynh Hoa">Banh Mi Huynh Hoa</option>
+<option value="Pho Phuong">Pho Phuong</option>
+<option value="Quan Thuy 94">Quan Thuy 94</option>
+<option value="Quan Co Lieng">Quan Co Lieng</option>
+<option value="Pho Hoa Pasteur">Pho Hoa Pasteur</option>
+<option value="Quan Ngon Bun Cha Hanoi">Quan Ngon Bun Cha Hanoi</option>
+<option value="Bun Thit Nuong Cha Gio">Bun Thit Nuong Cha Gio</option>
+<option value="Com Tam Moc ">Com Tam Moc </option>
+<option value="House Of Merlin Bar">House Of Merlin Bar</option>
+<option value="Mille Mille">Mille Mille</option>
+<option value="Xliii Specialty Coffee">Xliii Specialty Coffee</option>
+<option value="Bakes Pasteur">Bakes Pasteur</option>
+<option value="Crab Shack">Crab Shack</option>
+<option value="Rue Miche">Rue Miche</option>
+<option value="The Idiot">The Idiot</option>
+<option value="Seeson">Seeson</option>
+<option value="Ton That Thiep Street">Ton That Thiep Street</option>
+<option value="The New Playground">The New Playground</option>
+<option value="Tran Quoang Dieu Street">Tran Quoang Dieu Street</option>
+<option value="Saigon Centre">Saigon Centre</option>
+<option value="Nguyen Trai">Nguyen Trai</option>
+<option value="Whose Studio">Whose Studio</option>
+<option value="Saigon Central Market">Saigon Central Market</option>
+<option value="Ben Thanh Market">Ben Thanh Market</option>
+<option value="Cu Chi Tunnel">Cu Chi Tunnel</option>
+<option value="Book Street">Book Street</option>
+<option value="Hop On Hop Off Bus">Hop On Hop Off Bus</option>
+<option value="Café Apartments">Café Apartments</option>
+<option value="War Remnant Museum">War Remnant Museum</option>
+<option value="Notre Dame Cathedral">Notre Dame Cathedral</option>
+<option value="Saigon Central Post Office">Saigon Central Post Office</option>
+<option value="Saigon Opera House">Saigon Opera House</option>
+<option value="Bui Vien Walking Street">Bui Vien Walking Street</option>
+<option value="Tan Dinh Pink Church">Tan Dinh Pink Church</option>
+<option value="Landmark 81">Landmark 81</option>
+<option value="Burning Monk">Burning Monk</option>
+<option value="Tran Hung Dao Statue">Tran Hung Dao Statue</option>
+<option value="Independence Palace">Independence Palace</option>
+    </select>
+</div>
+<div id="map"></div>
+<script>
+    let map;
+    let markers = [];
+    const data = [{'Place': 'Nicecy Boutique Hotel', 'Type': 'Hotel', 'Description': 'HOTEL', 'Google Map pin': '10.77175776296314, 106.696147808295', 'Link': 'https://maps.app.goo.gl/7kphMmfZb9QyUeqJA', 'Latitude': 10.77175776296314, 'Longitude': 106.696147808295, 'MarkerColor': 'yellow'}, {'Place': 'Man Moi', 'Type': 'Restaurant', 'Description': 'Michelin Viet Cuisine', 'Google Map pin': '10.804485024342785, 106.74397422615206', 'Link': 'https://maps.app.goo.gl/uXFvRYhZSiqEynFL7', 'Latitude': 10.804485024342785, 'Longitude': 106.74397422615206, 'MarkerColor': 'red'}, {'Place': 'Pizza 4Ps', 'Type': 'Restaurant', 'Description': 'Pizza', 'Google Map pin': '10.77337106942371, 106.69761552792187', 'Link': 'https://maps.app.goo.gl/cVcHgCz8xoN1UutS6', 'Latitude': 10.77337106942371, 'Longitude': 106.69761552792187, 'MarkerColor': 'red'}, {'Place': 'Bo Ne Ba Nui', 'Type': 'Restaurant', 'Description': 'Dipping Bahn Mi', 'Google Map pin': '10.768557545625795, 106.69885972996536', 'Link': 'https://maps.app.goo.gl/LtHQrVGYA9M4ZGzm9', 'Latitude': 10.768557545625795, 'Longitude': 106.69885972996536, 'MarkerColor': 'red'}, {'Place': 'Oc Oanh', 'Type': 'Restaurant', 'Description': 'Shellfish', 'Google Map pin': '10.760729903857586, 106.70330749201985', 'Link': 'https://maps.app.goo.gl/asqSwiNatLVvTRf76', 'Latitude': 10.760729903857586, 'Longitude': 106.70330749201985, 'MarkerColor': 'red'}, {'Place': 'Taco Del Sol', 'Type': 'Restaurant', 'Description': 'Mexican', 'Google Map pin': '10.774264120649006, 106.69700749521184', 'Link': 'https://maps.app.goo.gl/onfmTiDzKXsap17h8', 'Latitude': 10.774264120649006, 'Longitude': 106.69700749521184, 'MarkerColor': 'red'}, {'Place': 'Bep Me In', 'Type': 'Restaurant', 'Description': 'Gourmand Viet Cuisine', 'Google Map pin': '10.77386911114326, 106.69807740235399', 'Link': 'https://maps.app.goo.gl/khu8hQmMBD9iqXBD8', 'Latitude': 10.77386911114326, 'Longitude': 106.69807740235399, 'MarkerColor': 'red'}, {'Place': 'Com Tam Ba Ghien ', 'Type': 'Restaurant', 'Description': 'Michelin Broken Rice', 'Google Map pin': '10.794463284719443, 106.6693116994767', 'Link': 'https://maps.app.goo.gl/K4mTtmJK34Vx6ayC7', 'Latitude': 10.794463284719443, 'Longitude': 106.6693116994767, 'MarkerColor': 'red'}, {'Place': 'Ngam Café', 'Type': 'Restaurant', 'Description': 'Coffee', 'Google Map pin': '10.786475168907984, 106.68619185859562', 'Link': 'https://maps.app.goo.gl/oCzempy6X83Mem12A', 'Latitude': 10.786475168907984, 'Longitude': 106.68619185859562, 'MarkerColor': 'red'}, {'Place': 'Ban Xeo 46A', 'Type': 'Restaurant', 'Description': 'Viet Pancake', 'Google Map pin': '10.789594417050285, 106.69132291816004', 'Link': 'https://maps.app.goo.gl/RnGBq1sA1321njY57', 'Latitude': 10.789594417050285, 'Longitude': 106.69132291816004, 'MarkerColor': 'red'}, {'Place': 'Banh Mi Huynh Hoa', 'Type': 'Restaurant', 'Description': 'Banh Mi', 'Google Map pin': '10.771532651848924, 106.69239678274866', 'Link': 'https://maps.app.goo.gl/e42Q8Nw34c6XrueH6', 'Latitude': 10.771532651848924, 'Longitude': 106.69239678274866, 'MarkerColor': 'red'}, {'Place': 'Pho Phuong', 'Type': 'Restaurant', 'Description': 'Pho', 'Google Map pin': '10.791934567205903, 106.70446716701731', 'Link': 'https://maps.app.goo.gl/K2hAW4X9bTZzRyNK8', 'Latitude': 10.791934567205903, 'Longitude': 106.70446716701731, 'MarkerColor': 'red'}, {'Place': 'Quan Thuy 94', 'Type': 'Restaurant', 'Description': 'Crab', 'Google Map pin': '10.79017240783325, 106.69788511620357', 'Link': 'https://maps.app.goo.gl/NDKkLJ1BWdqB8VD47', 'Latitude': 10.79017240783325, 'Longitude': 106.69788511620357, 'MarkerColor': 'red'}, {'Place': 'Quan Co Lieng', 'Type': 'Restaurant', 'Description': 'Bo La Lot', 'Google Map pin': '10.771630649967427, 106.6858118272596', 'Link': 'https://maps.app.goo.gl/WdE4hdXMhsfBqVbd9', 'Latitude': 10.771630649967427, 'Longitude': 106.6858118272596, 'MarkerColor': 'red'}, {'Place': 'Pho Hoa Pasteur', 'Type': 'Restaurant', 'Description': 'Pho', 'Google Map pin': '10.78670966983164, 106.68926472255441', 'Link': 'https://maps.app.goo.gl/ptEmUsYkzahHbs3eA', 'Latitude': 10.78670966983164, 'Longitude': 106.68926472255441, 'MarkerColor': 'red'}, {'Place': 'Quan Ngon Bun Cha Hanoi', 'Type': 'Restaurant', 'Description': 'Bun Cha', 'Google Map pin': '10.76774816716248, 106.69369774021756', 'Link': 'https://maps.app.goo.gl/nd6rKDLVhy1aHYrk6', 'Latitude': 10.76774816716248, 'Longitude': 106.69369774021756, 'MarkerColor': 'red'}, {'Place': 'Bun Thit Nuong Cha Gio', 'Type': 'Restaurant', 'Description': 'Bun Thit Nuong', 'Google Map pin': '10.773413525647054, 106.69961988497906', 'Link': 'https://maps.app.goo.gl/EqismSYt5NCJBH6Y8', 'Latitude': 10.773413525647054, 'Longitude': 106.69961988497906, 'MarkerColor': 'red'}, {'Place': 'Com Tam Moc ', 'Type': 'Restaurant', 'Description': 'Broken Rice', 'Google Map pin': '10.774476062231898, 106.69798697074862', 'Link': 'https://maps.app.goo.gl/83XD3PFXafpTAtJw9', 'Latitude': 10.774476062231898, 'Longitude': 106.69798697074862, 'MarkerColor': 'red'}, {'Place': 'House Of Merlin Bar', 'Type': 'Restaurant', 'Description': 'Bar', 'Google Map pin': '10.778237698512456, 106.69860039009205', 'Link': 'https://maps.app.goo.gl/q6hPi7E1LpPSz3K27', 'Latitude': 10.778237698512456, 'Longitude': 106.69860039009205, 'MarkerColor': 'red'}, {'Place': 'Mille Mille', 'Type': 'Restaurant', 'Description': 'Pastries/Coffee', 'Google Map pin': '10.783648697610767, 106.69625869001872', 'Link': 'https://maps.app.goo.gl/vjkcT6icS4H9o4MB9', 'Latitude': 10.783648697610767, 'Longitude': 106.69625869001872, 'MarkerColor': 'red'}, {'Place': 'Xliii Specialty Coffee', 'Type': 'Restaurant', 'Description': 'Coffee', 'Google Map pin': '10.778199130263683, 106.69856858776348', 'Link': 'https://maps.app.goo.gl/4RWQcqUqpd52FUXk7', 'Latitude': 10.778199130263683, 'Longitude': 106.69856858776348, 'MarkerColor': 'red'}, {'Place': 'Bakes Pasteur', 'Type': 'Restaurant', 'Description': 'Pastries/Coffee', 'Google Map pin': '10.785765868599459, 106.69037208702287', 'Link': 'https://maps.app.goo.gl/CXkuYuV5USj9zpMw7', 'Latitude': 10.785765868599459, 'Longitude': 106.69037208702287, 'MarkerColor': 'red'}, {'Place': 'Crab Shack', 'Type': 'Restaurant', 'Description': 'Crab Roe', 'Google Map pin': '10.77732583431299, 106.68342061210151', 'Link': 'https://maps.app.goo.gl/KRCdFn9qD6Pz4WEB6', 'Latitude': 10.77732583431299, 'Longitude': 106.68342061210151, 'MarkerColor': 'red'}, {'Place': 'Rue Miche', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.784235675995863, 106.69801195767677', 'Link': 'https://maps.app.goo.gl/E7RhrND7sSq3VrrA7', 'Latitude': 10.784235675995863, 'Longitude': 106.69801195767677, 'MarkerColor': 'blue'}, {'Place': 'The Idiot', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.76658451594319, 106.69378696469829', 'Link': 'https://maps.app.goo.gl/4efwJ8BAgfUSB5zi9', 'Latitude': 10.76658451594319, 'Longitude': 106.69378696469829, 'MarkerColor': 'blue'}, {'Place': 'Seeson', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.785752808883654, 106.6931991682033', 'Link': 'https://maps.app.goo.gl/JvUkHLhRZHrwSjEV7', 'Latitude': 10.785752808883654, 'Longitude': 106.6931991682033, 'MarkerColor': 'blue'}, {'Place': 'Ton That Thiep Street', 'Type': 'Shopping', 'Description': 'Shopping Street', 'Google Map pin': '10.773473681455274, 106.70232544596229', 'Link': 'https://maps.app.goo.gl/XPZCVkHtibuc5VQx7', 'Latitude': 10.773473681455274, 'Longitude': 106.70232544596229, 'MarkerColor': 'blue'}, {'Place': 'The New Playground', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.778210312939608, 106.70111147664721', 'Link': 'https://maps.app.goo.gl/Yjd1iUAuGBSfYhecA', 'Latitude': 10.778210312939608, 'Longitude': 106.70111147664721, 'MarkerColor': 'blue'}, {'Place': 'Tran Quoang Dieu Street', 'Type': 'Shopping', 'Description': 'Shopping Street', 'Google Map pin': '10.787085066168926, 106.67827023433888', 'Link': 'https://maps.app.goo.gl/4XPrpkg4ce8A2e318', 'Latitude': 10.787085066168926, 'Longitude': 106.67827023433888, 'MarkerColor': 'blue'}, {'Place': 'Saigon Centre', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.773116181642646, 106.70104831038871', 'Link': 'https://maps.app.goo.gl/mEyAfSHUmh955qE16', 'Latitude': 10.773116181642646, 'Longitude': 106.70104831038871, 'MarkerColor': 'blue'}, {'Place': 'Nguyen Trai', 'Type': 'Shopping', 'Description': 'Shopping Street', 'Google Map pin': '10.757527188839452, 106.67882383233075', 'Link': 'https://maps.app.goo.gl/4xPMSPNbUmQjDAA68', 'Latitude': 10.757527188839452, 'Longitude': 106.67882383233075, 'MarkerColor': 'blue'}, {'Place': 'Whose Studio', 'Type': 'Shopping', 'Description': 'Shopping', 'Google Map pin': '10.78912746573161, 106.67733368857877', 'Link': 'https://maps.app.goo.gl/aQrcjwS9E4F7f3Gz7', 'Latitude': 10.78912746573161, 'Longitude': 106.67733368857877, 'MarkerColor': 'blue'}, {'Place': 'Saigon Central Market', 'Type': 'Shopping', 'Description': 'Market', 'Google Map pin': '10.769040392167456, 106.69377268542253', 'Link': 'https://maps.app.goo.gl/5QZ6QybMeqdqbgQy5', 'Latitude': 10.769040392167456, 'Longitude': 106.69377268542253, 'MarkerColor': 'blue'}, {'Place': 'Ben Thanh Market', 'Type': 'Shopping', 'Description': 'Market', 'Google Map pin': '10.772544018736522, 106.698019754821', 'Link': 'https://maps.app.goo.gl/sbrkwbyzHYaAcpN2A', 'Latitude': 10.772544018736522, 'Longitude': 106.698019754821, 'MarkerColor': 'blue'}, {'Place': 'Cu Chi Tunnel', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '11.141648461962385, 106.46160242711896', 'Link': 'https://maps.app.goo.gl/JyhiXbrNgihdUHpW6', 'Latitude': 11.141648461962385, 'Longitude': 106.46160242711896, 'MarkerColor': 'green'}, {'Place': 'Book Street', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.780979949032995, 106.70007217922141', 'Link': 'https://maps.app.goo.gl/FmXuTx4jacrnEWpJA', 'Latitude': 10.780979949032995, 'Longitude': 106.70007217922141, 'MarkerColor': 'green'}, {'Place': 'Hop On Hop Off Bus', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.782915472169503, 106.69009520774327', 'Link': 'https://maps.app.goo.gl/WfB32jFgmoon7tDh9', 'Latitude': 10.782915472169503, 'Longitude': 106.69009520774327, 'MarkerColor': 'green'}, {'Place': 'Café Apartments', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.774057556160242, 106.7040990380168', 'Link': 'https://maps.app.goo.gl/dkXpSywrq425tE8r5', 'Latitude': 10.774057556160242, 'Longitude': 106.7040990380168, 'MarkerColor': 'green'}, {'Place': 'War Remnant Museum', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.779527071798785, 106.69211106384698', 'Link': 'https://maps.app.goo.gl/iZ1Qm4jSiF6oXHWN9', 'Latitude': 10.779527071798785, 'Longitude': 106.69211106384698, 'MarkerColor': 'green'}, {'Place': 'Notre Dame Cathedral', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.779804111831181, 106.69901199375893', 'Link': 'https://maps.app.goo.gl/RPf4ZEnCvcyJXP4u6', 'Latitude': 10.779804111831181, 'Longitude': 106.69901199375893, 'MarkerColor': 'green'}, {'Place': 'Saigon Central Post Office', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.779925146224793, 106.69990162309738', 'Link': 'https://maps.app.goo.gl/EUW5KxEXzxYpbdb19', 'Latitude': 10.779925146224793, 'Longitude': 106.69990162309738, 'MarkerColor': 'green'}, {'Place': 'Saigon Opera House', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.776641230017185, 106.70317409290708', 'Link': 'https://maps.app.goo.gl/jJaggK3UVmiBbDdF7', 'Latitude': 10.776641230017185, 'Longitude': 106.70317409290708, 'MarkerColor': 'green'}, {'Place': 'Bui Vien Walking Street', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.767719780709161, 106.69402226436962', 'Link': 'https://maps.app.goo.gl/hKuoa4ToPhk6aTxq7', 'Latitude': 10.767719780709161, 'Longitude': 106.69402226436962, 'MarkerColor': 'green'}, {'Place': 'Tan Dinh Pink Church', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.788355771452213, 106.69067682072124', 'Link': 'https://maps.app.goo.gl/NsqGsMrNhjARzE9k7', 'Latitude': 10.788355771452213, 'Longitude': 106.69067682072124, 'MarkerColor': 'green'}, {'Place': 'Landmark 81', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.79513698571885, 106.72209185878422', 'Link': 'https://maps.app.goo.gl/yW6FiWiHqyvPp7L6A', 'Latitude': 10.79513698571885, 'Longitude': 106.72209185878422, 'MarkerColor': 'green'}, {'Place': 'Burning Monk', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.775320701864004, 106.68662563770211', 'Link': 'https://maps.app.goo.gl/xANq5iQ6nUGkEip16', 'Latitude': 10.775320701864004, 'Longitude': 106.68662563770211, 'MarkerColor': 'green'}, {'Place': 'Tran Hung Dao Statue', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.775312197113506, 106.70647150495576', 'Link': 'https://maps.app.goo.gl/JTAsRczQew5Q9LoW7', 'Latitude': 10.775312197113506, 'Longitude': 106.70647150495576, 'MarkerColor': 'green'}, {'Place': 'Independence Palace', 'Type': 'Attraction', 'Description': 'Attraction', 'Google Map pin': '10.777016362513285, 106.69530597149293', 'Link': 'https://maps.app.goo.gl/G1eJGCMUWf1eJwvd9', 'Latitude': 10.777016362513285, 'Longitude': 106.69530597149293, 'MarkerColor': 'green'}];
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 10.7758, lng: 106.7000 },
+            zoom: 13
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
+                    title: "You are here"
+                });
+            });
+        }
+
+        addMarkers();
+
+        document.getElementById('placeSelect').addEventListener('change', function() {
+            const value = this.value;
+            for (const marker of markers) {
+                marker.setMap(null);
+            }
+            markers = [];
+
+            if (value === "all") {
+                addMarkers();
+            } else {
+                const place = data.find(p => p.Place === value);
+                if (place) {
+                    const marker = new google.maps.Marker({
+                        position: { lat: parseFloat(place.Latitude), lng: parseFloat(place.Longitude) },
+                        map: map,
+                        icon: "http://maps.google.com/mapfiles/ms/icons/" + place.MarkerColor + "-dot.png",
+                        title: place.Place
+                    });
+                    const info = new google.maps.InfoWindow({
+                        content: `<b>${place.Place}</b><br>${place.Description}<br><a href="${place.Link}" target="_blank">Google Maps</a>`
+                    });
+                    marker.addListener("click", () => info.open(map, marker));
+                    marker.setMap(map);
+                    markers.push(marker);
+                    map.setCenter(marker.getPosition());
+                    map.setZoom(17);
+                }
+            }
+        });
+    }
+
+    function addMarkers() {
+        for (const place of data) {
+            const marker = new google.maps.Marker({
+                position: { lat: parseFloat(place.Latitude), lng: parseFloat(place.Longitude) },
+                map: map,
+                icon: "http://maps.google.com/mapfiles/ms/icons/" + place.MarkerColor + "-dot.png",
+                title: place.Place
+            });
+            const info = new google.maps.InfoWindow({
+                content: `<b>${place.Place}</b><br>${place.Description}<br><a href="${place.Link}" target="_blank">Google Maps</a>`
+            });
+            marker.addListener("click", () => info.open(map, marker));
+            markers.push(marker);
+        }
+    }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+</script>
+</body>
+</html>
