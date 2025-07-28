@@ -5,42 +5,41 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             background-color: maroon;
             color: #fff;
         }
         h2 {
             text-align: center;
-            font-size: 56px;
-            margin-bottom: 30px;
+            font-size: 8vw;
+            margin-bottom: 20px;
             color: #ffeb3b;
             text-shadow: 3px 3px 6px #000;
             font-family: 'Noto Serif SC', serif;
         }
         h3 {
-            font-size: 20px;
+            font-size: 5vw;
             margin-top: 30px;
             border-bottom: 1px solid #ffc107;
             padding-bottom: 4px;
             color: #ffeb3b;
         }
         table {
-            border-collapse: collapse;
             width: 100%;
             margin-bottom: 20px;
             background-color: rgba(0, 0, 0, 0.4);
             border-radius: 8px;
         }
         th, td {
-            border: none;
-            padding: 6px;
-            font-size: 15px;
+            padding: 8px 4px;
+            font-size: 4vw;
             text-align: left;
             vertical-align: middle;
             color: #fff;
+            word-wrap: break-word;
         }
         input[type=checkbox] {
-            transform: scale(2);
+            transform: scale(2.2);
             margin: 0 6px 0 0;
             cursor: pointer;
             vertical-align: middle;
@@ -49,11 +48,16 @@
         .yellow:checked { accent-color: gold; }
         .red:checked { accent-color: red; }
         a {
-            font-size: 15px;
             color: #03a9f4;
+            word-break: break-word;
         }
         a:hover {
             text-decoration: underline;
+        }
+        @media (min-width: 768px) {
+            h2 { font-size: 48px; }
+            h3 { font-size: 22px; }
+            th, td { font-size: 16px; }
         }
     </style>
     <script>
@@ -62,7 +66,27 @@
             checkboxes.forEach(cb => {
                 if (cb !== current) cb.checked = false;
             });
+            saveCheckboxStates();
         }
+
+        function saveCheckboxStates() {
+            const allCheckboxes = document.querySelectorAll('input[type=checkbox]');
+            const states = {};
+            allCheckboxes.forEach((checkbox, index) => {
+                states[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem('saigonChecklistStates', JSON.stringify(states));
+        }
+
+        function loadCheckboxStates() {
+            const states = JSON.parse(localStorage.getItem('saigonChecklistStates') || '{}');
+            Object.entries(states).forEach(([id, checked]) => {
+                const cb = document.getElementById(id);
+                if (cb) cb.checked = checked;
+            });
+        }
+
+        window.onload = loadCheckboxStates;
     </script>
     <h2>SAIGON CHECKLIST</h2>
     <h3>RESTAURANT</h3>
@@ -73,205 +97,205 @@
                 <th>❌</th>
                 <th>Place</th>
                 <th>District</th>
-                <th>Google Map Link</th>
+                <th>Map</th>
             </tr>
         
             <tr>
-                <td><input type="checkbox" class="green" name="group0" onclick="onlyOneCheckbox('group0', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group0" onclick="onlyOneCheckbox('group0', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group0" onclick="onlyOneCheckbox('group0', this)"></td>
+                <td><input type="checkbox" class="green" id="group0_green" name="group0" onclick="onlyOneCheckbox('group0', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group0_yellow" name="group0" onclick="onlyOneCheckbox('group0', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group0_red" name="group0" onclick="onlyOneCheckbox('group0', this)"></td>
                 <td>House Of Merlin Bar (Bar)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/q6hPi7E1LpPSz3K27" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/q6hPi7E1LpPSz3K27" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group1" onclick="onlyOneCheckbox('group1', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group1" onclick="onlyOneCheckbox('group1', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group1" onclick="onlyOneCheckbox('group1', this)"></td>
+                <td><input type="checkbox" class="green" id="group1_green" name="group1" onclick="onlyOneCheckbox('group1', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group1_yellow" name="group1" onclick="onlyOneCheckbox('group1', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group1_red" name="group1" onclick="onlyOneCheckbox('group1', this)"></td>
                 <td>Crab Shack (Crab Roe)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/KRCdFn9qD6Pz4WEB6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/KRCdFn9qD6Pz4WEB6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group2" onclick="onlyOneCheckbox('group2', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group2" onclick="onlyOneCheckbox('group2', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group2" onclick="onlyOneCheckbox('group2', this)"></td>
+                <td><input type="checkbox" class="green" id="group2_green" name="group2" onclick="onlyOneCheckbox('group2', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group2_yellow" name="group2" onclick="onlyOneCheckbox('group2', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group2_red" name="group2" onclick="onlyOneCheckbox('group2', this)"></td>
                 <td>Bakes Pasteur (Pastries/Coffee)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/CXkuYuV5USj9zpMw7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/CXkuYuV5USj9zpMw7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group3" onclick="onlyOneCheckbox('group3', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group3" onclick="onlyOneCheckbox('group3', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group3" onclick="onlyOneCheckbox('group3', this)"></td>
+                <td><input type="checkbox" class="green" id="group3_green" name="group3" onclick="onlyOneCheckbox('group3', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group3_yellow" name="group3" onclick="onlyOneCheckbox('group3', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group3_red" name="group3" onclick="onlyOneCheckbox('group3', this)"></td>
                 <td>Xliii Specialty Coffee (Coffee)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/4RWQcqUqpd52FUXk7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/4RWQcqUqpd52FUXk7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group4" onclick="onlyOneCheckbox('group4', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group4" onclick="onlyOneCheckbox('group4', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group4" onclick="onlyOneCheckbox('group4', this)"></td>
+                <td><input type="checkbox" class="green" id="group4_green" name="group4" onclick="onlyOneCheckbox('group4', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group4_yellow" name="group4" onclick="onlyOneCheckbox('group4', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group4_red" name="group4" onclick="onlyOneCheckbox('group4', this)"></td>
                 <td>Mille Mille (Pastries/Coffee)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/vjkcT6icS4H9o4MB9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/vjkcT6icS4H9o4MB9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group5" onclick="onlyOneCheckbox('group5', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group5" onclick="onlyOneCheckbox('group5', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group5" onclick="onlyOneCheckbox('group5', this)"></td>
+                <td><input type="checkbox" class="green" id="group5_green" name="group5" onclick="onlyOneCheckbox('group5', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group5_yellow" name="group5" onclick="onlyOneCheckbox('group5', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group5_red" name="group5" onclick="onlyOneCheckbox('group5', this)"></td>
                 <td>Com Tam Moc  (Broken Rice)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/83XD3PFXafpTAtJw9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/83XD3PFXafpTAtJw9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group6" onclick="onlyOneCheckbox('group6', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group6" onclick="onlyOneCheckbox('group6', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group6" onclick="onlyOneCheckbox('group6', this)"></td>
+                <td><input type="checkbox" class="green" id="group6_green" name="group6" onclick="onlyOneCheckbox('group6', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group6_yellow" name="group6" onclick="onlyOneCheckbox('group6', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group6_red" name="group6" onclick="onlyOneCheckbox('group6', this)"></td>
                 <td>Bun Thit Nuong Cha Gio (Bun Thit Nuong)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/EqismSYt5NCJBH6Y8" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/EqismSYt5NCJBH6Y8" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group7" onclick="onlyOneCheckbox('group7', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group7" onclick="onlyOneCheckbox('group7', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group7" onclick="onlyOneCheckbox('group7', this)"></td>
+                <td><input type="checkbox" class="green" id="group7_green" name="group7" onclick="onlyOneCheckbox('group7', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group7_yellow" name="group7" onclick="onlyOneCheckbox('group7', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group7_red" name="group7" onclick="onlyOneCheckbox('group7', this)"></td>
                 <td>Quan Ngon Bun Cha Hanoi (Bun Cha)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/nd6rKDLVhy1aHYrk6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/nd6rKDLVhy1aHYrk6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group8" onclick="onlyOneCheckbox('group8', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group8" onclick="onlyOneCheckbox('group8', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group8" onclick="onlyOneCheckbox('group8', this)"></td>
+                <td><input type="checkbox" class="green" id="group8_green" name="group8" onclick="onlyOneCheckbox('group8', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group8_yellow" name="group8" onclick="onlyOneCheckbox('group8', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group8_red" name="group8" onclick="onlyOneCheckbox('group8', this)"></td>
                 <td>Pho Hoa Pasteur (Pho)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/ptEmUsYkzahHbs3eA" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/ptEmUsYkzahHbs3eA" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group9" onclick="onlyOneCheckbox('group9', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group9" onclick="onlyOneCheckbox('group9', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group9" onclick="onlyOneCheckbox('group9', this)"></td>
+                <td><input type="checkbox" class="green" id="group9_green" name="group9" onclick="onlyOneCheckbox('group9', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group9_yellow" name="group9" onclick="onlyOneCheckbox('group9', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group9_red" name="group9" onclick="onlyOneCheckbox('group9', this)"></td>
                 <td>Quan Thuy 94 (Crab)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/NDKkLJ1BWdqB8VD47" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/NDKkLJ1BWdqB8VD47" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group10" onclick="onlyOneCheckbox('group10', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group10" onclick="onlyOneCheckbox('group10', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group10" onclick="onlyOneCheckbox('group10', this)"></td>
+                <td><input type="checkbox" class="green" id="group10_green" name="group10" onclick="onlyOneCheckbox('group10', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group10_yellow" name="group10" onclick="onlyOneCheckbox('group10', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group10_red" name="group10" onclick="onlyOneCheckbox('group10', this)"></td>
                 <td>Pho Phuong (Pho)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/K2hAW4X9bTZzRyNK8" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/K2hAW4X9bTZzRyNK8" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group11" onclick="onlyOneCheckbox('group11', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group11" onclick="onlyOneCheckbox('group11', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group11" onclick="onlyOneCheckbox('group11', this)"></td>
+                <td><input type="checkbox" class="green" id="group11_green" name="group11" onclick="onlyOneCheckbox('group11', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group11_yellow" name="group11" onclick="onlyOneCheckbox('group11', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group11_red" name="group11" onclick="onlyOneCheckbox('group11', this)"></td>
                 <td>Quan Co Lieng (Bo La Lot)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/WdE4hdXMhsfBqVbd9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/WdE4hdXMhsfBqVbd9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group12" onclick="onlyOneCheckbox('group12', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group12" onclick="onlyOneCheckbox('group12', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group12" onclick="onlyOneCheckbox('group12', this)"></td>
+                <td><input type="checkbox" class="green" id="group12_green" name="group12" onclick="onlyOneCheckbox('group12', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group12_yellow" name="group12" onclick="onlyOneCheckbox('group12', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group12_red" name="group12" onclick="onlyOneCheckbox('group12', this)"></td>
                 <td>Ban Xeo 46A (Viet Pancake)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/RnGBq1sA1321njY57" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/RnGBq1sA1321njY57" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group13" onclick="onlyOneCheckbox('group13', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group13" onclick="onlyOneCheckbox('group13', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group13" onclick="onlyOneCheckbox('group13', this)"></td>
+                <td><input type="checkbox" class="green" id="group13_green" name="group13" onclick="onlyOneCheckbox('group13', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group13_yellow" name="group13" onclick="onlyOneCheckbox('group13', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group13_red" name="group13" onclick="onlyOneCheckbox('group13', this)"></td>
                 <td>Ngam Café (Coffee)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/oCzempy6X83Mem12A" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/oCzempy6X83Mem12A" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group14" onclick="onlyOneCheckbox('group14', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group14" onclick="onlyOneCheckbox('group14', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group14" onclick="onlyOneCheckbox('group14', this)"></td>
+                <td><input type="checkbox" class="green" id="group14_green" name="group14" onclick="onlyOneCheckbox('group14', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group14_yellow" name="group14" onclick="onlyOneCheckbox('group14', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group14_red" name="group14" onclick="onlyOneCheckbox('group14', this)"></td>
                 <td>Com Tam Ba Ghien  (Michelin Broken Rice)</td>
                 <td>Phu Nuan</td>
-                <td><a href="https://maps.app.goo.gl/K4mTtmJK34Vx6ayC7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/K4mTtmJK34Vx6ayC7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group15" onclick="onlyOneCheckbox('group15', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group15" onclick="onlyOneCheckbox('group15', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group15" onclick="onlyOneCheckbox('group15', this)"></td>
+                <td><input type="checkbox" class="green" id="group15_green" name="group15" onclick="onlyOneCheckbox('group15', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group15_yellow" name="group15" onclick="onlyOneCheckbox('group15', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group15_red" name="group15" onclick="onlyOneCheckbox('group15', this)"></td>
                 <td>Bep Me In (Gourmand Viet Cuisine)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/khu8hQmMBD9iqXBD8" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/khu8hQmMBD9iqXBD8" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group16" onclick="onlyOneCheckbox('group16', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group16" onclick="onlyOneCheckbox('group16', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group16" onclick="onlyOneCheckbox('group16', this)"></td>
+                <td><input type="checkbox" class="green" id="group16_green" name="group16" onclick="onlyOneCheckbox('group16', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group16_yellow" name="group16" onclick="onlyOneCheckbox('group16', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group16_red" name="group16" onclick="onlyOneCheckbox('group16', this)"></td>
                 <td>Taco Del Sol (Mexican)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/onfmTiDzKXsap17h8" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/onfmTiDzKXsap17h8" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group17" onclick="onlyOneCheckbox('group17', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group17" onclick="onlyOneCheckbox('group17', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group17" onclick="onlyOneCheckbox('group17', this)"></td>
+                <td><input type="checkbox" class="green" id="group17_green" name="group17" onclick="onlyOneCheckbox('group17', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group17_yellow" name="group17" onclick="onlyOneCheckbox('group17', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group17_red" name="group17" onclick="onlyOneCheckbox('group17', this)"></td>
                 <td>Oc Oanh (Shellfish)</td>
                 <td>4</td>
-                <td><a href="https://maps.app.goo.gl/asqSwiNatLVvTRf76" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/asqSwiNatLVvTRf76" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group18" onclick="onlyOneCheckbox('group18', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group18" onclick="onlyOneCheckbox('group18', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group18" onclick="onlyOneCheckbox('group18', this)"></td>
+                <td><input type="checkbox" class="green" id="group18_green" name="group18" onclick="onlyOneCheckbox('group18', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group18_yellow" name="group18" onclick="onlyOneCheckbox('group18', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group18_red" name="group18" onclick="onlyOneCheckbox('group18', this)"></td>
                 <td>Bo Ne Ba Nui (Dipping Bahn Mi)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/LtHQrVGYA9M4ZGzm9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/LtHQrVGYA9M4ZGzm9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group19" onclick="onlyOneCheckbox('group19', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group19" onclick="onlyOneCheckbox('group19', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group19" onclick="onlyOneCheckbox('group19', this)"></td>
+                <td><input type="checkbox" class="green" id="group19_green" name="group19" onclick="onlyOneCheckbox('group19', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group19_yellow" name="group19" onclick="onlyOneCheckbox('group19', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group19_red" name="group19" onclick="onlyOneCheckbox('group19', this)"></td>
                 <td>Pizza 4Ps (Pizza)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/cVcHgCz8xoN1UutS6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/cVcHgCz8xoN1UutS6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group20" onclick="onlyOneCheckbox('group20', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group20" onclick="onlyOneCheckbox('group20', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group20" onclick="onlyOneCheckbox('group20', this)"></td>
+                <td><input type="checkbox" class="green" id="group20_green" name="group20" onclick="onlyOneCheckbox('group20', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group20_yellow" name="group20" onclick="onlyOneCheckbox('group20', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group20_red" name="group20" onclick="onlyOneCheckbox('group20', this)"></td>
                 <td>Man Moi (Michelin Viet Cuisine)</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/uXFvRYhZSiqEynFL7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/uXFvRYhZSiqEynFL7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group21" onclick="onlyOneCheckbox('group21', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group21" onclick="onlyOneCheckbox('group21', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group21" onclick="onlyOneCheckbox('group21', this)"></td>
+                <td><input type="checkbox" class="green" id="group21_green" name="group21" onclick="onlyOneCheckbox('group21', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group21_yellow" name="group21" onclick="onlyOneCheckbox('group21', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group21_red" name="group21" onclick="onlyOneCheckbox('group21', this)"></td>
                 <td>Banh Mi Huynh Hoa (Banh Mi)</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/e42Q8Nw34c6XrueH6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/e42Q8Nw34c6XrueH6" target="_blank">Google</a></td>
             </tr>
             </table><h3>ATTRACTION</h3>
         <table>
@@ -281,142 +305,142 @@
                 <th>❌</th>
                 <th>Place</th>
                 <th>District</th>
-                <th>Google Map Link</th>
+                <th>Map</th>
             </tr>
         
             <tr>
-                <td><input type="checkbox" class="green" name="group22" onclick="onlyOneCheckbox('group22', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group22" onclick="onlyOneCheckbox('group22', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group22" onclick="onlyOneCheckbox('group22', this)"></td>
+                <td><input type="checkbox" class="green" id="group22_green" name="group22" onclick="onlyOneCheckbox('group22', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group22_yellow" name="group22" onclick="onlyOneCheckbox('group22', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group22_red" name="group22" onclick="onlyOneCheckbox('group22', this)"></td>
                 <td>Saigon Central Post Office</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/EUW5KxEXzxYpbdb19" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/EUW5KxEXzxYpbdb19" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group23" onclick="onlyOneCheckbox('group23', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group23" onclick="onlyOneCheckbox('group23', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group23" onclick="onlyOneCheckbox('group23', this)"></td>
+                <td><input type="checkbox" class="green" id="group23_green" name="group23" onclick="onlyOneCheckbox('group23', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group23_yellow" name="group23" onclick="onlyOneCheckbox('group23', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group23_red" name="group23" onclick="onlyOneCheckbox('group23', this)"></td>
                 <td>Cu Chi Tunnel</td>
                 <td>cu chi</td>
-                <td><a href="https://maps.app.goo.gl/JyhiXbrNgihdUHpW6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/JyhiXbrNgihdUHpW6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group24" onclick="onlyOneCheckbox('group24', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group24" onclick="onlyOneCheckbox('group24', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group24" onclick="onlyOneCheckbox('group24', this)"></td>
+                <td><input type="checkbox" class="green" id="group24_green" name="group24" onclick="onlyOneCheckbox('group24', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group24_yellow" name="group24" onclick="onlyOneCheckbox('group24', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group24_red" name="group24" onclick="onlyOneCheckbox('group24', this)"></td>
                 <td>Café Apartments</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/dkXpSywrq425tE8r5" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/dkXpSywrq425tE8r5" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group25" onclick="onlyOneCheckbox('group25', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group25" onclick="onlyOneCheckbox('group25', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group25" onclick="onlyOneCheckbox('group25', this)"></td>
+                <td><input type="checkbox" class="green" id="group25_green" name="group25" onclick="onlyOneCheckbox('group25', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group25_yellow" name="group25" onclick="onlyOneCheckbox('group25', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group25_red" name="group25" onclick="onlyOneCheckbox('group25', this)"></td>
                 <td>War Remnant Museum</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/iZ1Qm4jSiF6oXHWN9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/iZ1Qm4jSiF6oXHWN9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group26" onclick="onlyOneCheckbox('group26', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group26" onclick="onlyOneCheckbox('group26', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group26" onclick="onlyOneCheckbox('group26', this)"></td>
+                <td><input type="checkbox" class="green" id="group26_green" name="group26" onclick="onlyOneCheckbox('group26', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group26_yellow" name="group26" onclick="onlyOneCheckbox('group26', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group26_red" name="group26" onclick="onlyOneCheckbox('group26', this)"></td>
                 <td>Notre Dame Cathedral</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/RPf4ZEnCvcyJXP4u6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/RPf4ZEnCvcyJXP4u6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group27" onclick="onlyOneCheckbox('group27', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group27" onclick="onlyOneCheckbox('group27', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group27" onclick="onlyOneCheckbox('group27', this)"></td>
+                <td><input type="checkbox" class="green" id="group27_green" name="group27" onclick="onlyOneCheckbox('group27', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group27_yellow" name="group27" onclick="onlyOneCheckbox('group27', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group27_red" name="group27" onclick="onlyOneCheckbox('group27', this)"></td>
                 <td>Saigon Opera House</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/jJaggK3UVmiBbDdF7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/jJaggK3UVmiBbDdF7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group28" onclick="onlyOneCheckbox('group28', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group28" onclick="onlyOneCheckbox('group28', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group28" onclick="onlyOneCheckbox('group28', this)"></td>
+                <td><input type="checkbox" class="green" id="group28_green" name="group28" onclick="onlyOneCheckbox('group28', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group28_yellow" name="group28" onclick="onlyOneCheckbox('group28', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group28_red" name="group28" onclick="onlyOneCheckbox('group28', this)"></td>
                 <td>Hem Bia Lost In Hong Kong</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/R688KKatyDwniXVd6" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/R688KKatyDwniXVd6" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group29" onclick="onlyOneCheckbox('group29', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group29" onclick="onlyOneCheckbox('group29', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group29" onclick="onlyOneCheckbox('group29', this)"></td>
+                <td><input type="checkbox" class="green" id="group29_green" name="group29" onclick="onlyOneCheckbox('group29', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group29_yellow" name="group29" onclick="onlyOneCheckbox('group29', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group29_red" name="group29" onclick="onlyOneCheckbox('group29', this)"></td>
                 <td>Tan Dinh Pink Church</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/NsqGsMrNhjARzE9k7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/NsqGsMrNhjARzE9k7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group30" onclick="onlyOneCheckbox('group30', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group30" onclick="onlyOneCheckbox('group30', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group30" onclick="onlyOneCheckbox('group30', this)"></td>
+                <td><input type="checkbox" class="green" id="group30_green" name="group30" onclick="onlyOneCheckbox('group30', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group30_yellow" name="group30" onclick="onlyOneCheckbox('group30', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group30_red" name="group30" onclick="onlyOneCheckbox('group30', this)"></td>
                 <td>Landmark 81</td>
                 <td>bin thanh</td>
-                <td><a href="https://maps.app.goo.gl/yW6FiWiHqyvPp7L6A" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/yW6FiWiHqyvPp7L6A" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group31" onclick="onlyOneCheckbox('group31', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group31" onclick="onlyOneCheckbox('group31', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group31" onclick="onlyOneCheckbox('group31', this)"></td>
+                <td><input type="checkbox" class="green" id="group31_green" name="group31" onclick="onlyOneCheckbox('group31', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group31_yellow" name="group31" onclick="onlyOneCheckbox('group31', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group31_red" name="group31" onclick="onlyOneCheckbox('group31', this)"></td>
                 <td>Burning Monk</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/xANq5iQ6nUGkEip16" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/xANq5iQ6nUGkEip16" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group32" onclick="onlyOneCheckbox('group32', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group32" onclick="onlyOneCheckbox('group32', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group32" onclick="onlyOneCheckbox('group32', this)"></td>
+                <td><input type="checkbox" class="green" id="group32_green" name="group32" onclick="onlyOneCheckbox('group32', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group32_yellow" name="group32" onclick="onlyOneCheckbox('group32', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group32_red" name="group32" onclick="onlyOneCheckbox('group32', this)"></td>
                 <td>Independence Palace</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/G1eJGCMUWf1eJwvd9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/G1eJGCMUWf1eJwvd9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group33" onclick="onlyOneCheckbox('group33', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group33" onclick="onlyOneCheckbox('group33', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group33" onclick="onlyOneCheckbox('group33', this)"></td>
+                <td><input type="checkbox" class="green" id="group33_green" name="group33" onclick="onlyOneCheckbox('group33', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group33_yellow" name="group33" onclick="onlyOneCheckbox('group33', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group33_red" name="group33" onclick="onlyOneCheckbox('group33', this)"></td>
                 <td>Tran Hung Dao Statue</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/JTAsRczQew5Q9LoW7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/JTAsRczQew5Q9LoW7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group34" onclick="onlyOneCheckbox('group34', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group34" onclick="onlyOneCheckbox('group34', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group34" onclick="onlyOneCheckbox('group34', this)"></td>
+                <td><input type="checkbox" class="green" id="group34_green" name="group34" onclick="onlyOneCheckbox('group34', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group34_yellow" name="group34" onclick="onlyOneCheckbox('group34', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group34_red" name="group34" onclick="onlyOneCheckbox('group34', this)"></td>
                 <td>Book Street</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/FmXuTx4jacrnEWpJA" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/FmXuTx4jacrnEWpJA" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group35" onclick="onlyOneCheckbox('group35', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group35" onclick="onlyOneCheckbox('group35', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group35" onclick="onlyOneCheckbox('group35', this)"></td>
+                <td><input type="checkbox" class="green" id="group35_green" name="group35" onclick="onlyOneCheckbox('group35', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group35_yellow" name="group35" onclick="onlyOneCheckbox('group35', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group35_red" name="group35" onclick="onlyOneCheckbox('group35', this)"></td>
                 <td>Bui Vien Walking Street</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/hKuoa4ToPhk6aTxq7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/hKuoa4ToPhk6aTxq7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group36" onclick="onlyOneCheckbox('group36', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group36" onclick="onlyOneCheckbox('group36', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group36" onclick="onlyOneCheckbox('group36', this)"></td>
+                <td><input type="checkbox" class="green" id="group36_green" name="group36" onclick="onlyOneCheckbox('group36', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group36_yellow" name="group36" onclick="onlyOneCheckbox('group36', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group36_red" name="group36" onclick="onlyOneCheckbox('group36', this)"></td>
                 <td>Hop On Hop Off Bus</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/WfB32jFgmoon7tDh9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/WfB32jFgmoon7tDh9" target="_blank">Google</a></td>
             </tr>
             </table><h3>SHOPPING</h3>
         <table>
@@ -426,106 +450,106 @@
                 <th>❌</th>
                 <th>Place</th>
                 <th>District</th>
-                <th>Google Map Link</th>
+                <th>Map</th>
             </tr>
         
             <tr>
-                <td><input type="checkbox" class="green" name="group37" onclick="onlyOneCheckbox('group37', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group37" onclick="onlyOneCheckbox('group37', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group37" onclick="onlyOneCheckbox('group37', this)"></td>
+                <td><input type="checkbox" class="green" id="group37_green" name="group37" onclick="onlyOneCheckbox('group37', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group37_yellow" name="group37" onclick="onlyOneCheckbox('group37', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group37_red" name="group37" onclick="onlyOneCheckbox('group37', this)"></td>
                 <td>The Idiot</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/4efwJ8BAgfUSB5zi9" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/4efwJ8BAgfUSB5zi9" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group38" onclick="onlyOneCheckbox('group38', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group38" onclick="onlyOneCheckbox('group38', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group38" onclick="onlyOneCheckbox('group38', this)"></td>
+                <td><input type="checkbox" class="green" id="group38_green" name="group38" onclick="onlyOneCheckbox('group38', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group38_yellow" name="group38" onclick="onlyOneCheckbox('group38', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group38_red" name="group38" onclick="onlyOneCheckbox('group38', this)"></td>
                 <td>Saigon Central Market</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/5QZ6QybMeqdqbgQy5" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/5QZ6QybMeqdqbgQy5" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group39" onclick="onlyOneCheckbox('group39', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group39" onclick="onlyOneCheckbox('group39', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group39" onclick="onlyOneCheckbox('group39', this)"></td>
+                <td><input type="checkbox" class="green" id="group39_green" name="group39" onclick="onlyOneCheckbox('group39', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group39_yellow" name="group39" onclick="onlyOneCheckbox('group39', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group39_red" name="group39" onclick="onlyOneCheckbox('group39', this)"></td>
                 <td>Whose Studio</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/aQrcjwS9E4F7f3Gz7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/aQrcjwS9E4F7f3Gz7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group40" onclick="onlyOneCheckbox('group40', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group40" onclick="onlyOneCheckbox('group40', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group40" onclick="onlyOneCheckbox('group40', this)"></td>
+                <td><input type="checkbox" class="green" id="group40_green" name="group40" onclick="onlyOneCheckbox('group40', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group40_yellow" name="group40" onclick="onlyOneCheckbox('group40', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group40_red" name="group40" onclick="onlyOneCheckbox('group40', this)"></td>
                 <td>Nguyen Trai</td>
                 <td>5</td>
-                <td><a href="https://maps.app.goo.gl/4xPMSPNbUmQjDAA68" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/4xPMSPNbUmQjDAA68" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group41" onclick="onlyOneCheckbox('group41', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group41" onclick="onlyOneCheckbox('group41', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group41" onclick="onlyOneCheckbox('group41', this)"></td>
+                <td><input type="checkbox" class="green" id="group41_green" name="group41" onclick="onlyOneCheckbox('group41', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group41_yellow" name="group41" onclick="onlyOneCheckbox('group41', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group41_red" name="group41" onclick="onlyOneCheckbox('group41', this)"></td>
                 <td>Saigon Centre</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/mEyAfSHUmh955qE16" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/mEyAfSHUmh955qE16" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group42" onclick="onlyOneCheckbox('group42', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group42" onclick="onlyOneCheckbox('group42', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group42" onclick="onlyOneCheckbox('group42', this)"></td>
+                <td><input type="checkbox" class="green" id="group42_green" name="group42" onclick="onlyOneCheckbox('group42', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group42_yellow" name="group42" onclick="onlyOneCheckbox('group42', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group42_red" name="group42" onclick="onlyOneCheckbox('group42', this)"></td>
                 <td>Tran Quoang Dieu Street</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/4XPrpkg4ce8A2e318" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/4XPrpkg4ce8A2e318" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group43" onclick="onlyOneCheckbox('group43', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group43" onclick="onlyOneCheckbox('group43', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group43" onclick="onlyOneCheckbox('group43', this)"></td>
+                <td><input type="checkbox" class="green" id="group43_green" name="group43" onclick="onlyOneCheckbox('group43', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group43_yellow" name="group43" onclick="onlyOneCheckbox('group43', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group43_red" name="group43" onclick="onlyOneCheckbox('group43', this)"></td>
                 <td>The New Playground</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/Yjd1iUAuGBSfYhecA" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/Yjd1iUAuGBSfYhecA" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group44" onclick="onlyOneCheckbox('group44', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group44" onclick="onlyOneCheckbox('group44', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group44" onclick="onlyOneCheckbox('group44', this)"></td>
+                <td><input type="checkbox" class="green" id="group44_green" name="group44" onclick="onlyOneCheckbox('group44', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group44_yellow" name="group44" onclick="onlyOneCheckbox('group44', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group44_red" name="group44" onclick="onlyOneCheckbox('group44', this)"></td>
                 <td>Ton That Thiep Street</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/XPZCVkHtibuc5VQx7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/XPZCVkHtibuc5VQx7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group45" onclick="onlyOneCheckbox('group45', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group45" onclick="onlyOneCheckbox('group45', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group45" onclick="onlyOneCheckbox('group45', this)"></td>
+                <td><input type="checkbox" class="green" id="group45_green" name="group45" onclick="onlyOneCheckbox('group45', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group45_yellow" name="group45" onclick="onlyOneCheckbox('group45', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group45_red" name="group45" onclick="onlyOneCheckbox('group45', this)"></td>
                 <td>Seeson</td>
                 <td>3</td>
-                <td><a href="https://maps.app.goo.gl/JvUkHLhRZHrwSjEV7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/JvUkHLhRZHrwSjEV7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group46" onclick="onlyOneCheckbox('group46', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group46" onclick="onlyOneCheckbox('group46', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group46" onclick="onlyOneCheckbox('group46', this)"></td>
+                <td><input type="checkbox" class="green" id="group46_green" name="group46" onclick="onlyOneCheckbox('group46', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group46_yellow" name="group46" onclick="onlyOneCheckbox('group46', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group46_red" name="group46" onclick="onlyOneCheckbox('group46', this)"></td>
                 <td>Rue Miche</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/E7RhrND7sSq3VrrA7" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/E7RhrND7sSq3VrrA7" target="_blank">Google</a></td>
             </tr>
             
             <tr>
-                <td><input type="checkbox" class="green" name="group47" onclick="onlyOneCheckbox('group47', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group47" onclick="onlyOneCheckbox('group47', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group47" onclick="onlyOneCheckbox('group47', this)"></td>
+                <td><input type="checkbox" class="green" id="group47_green" name="group47" onclick="onlyOneCheckbox('group47', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group47_yellow" name="group47" onclick="onlyOneCheckbox('group47', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group47_red" name="group47" onclick="onlyOneCheckbox('group47', this)"></td>
                 <td>Ben Thanh Market</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/sbrkwbyzHYaAcpN2A" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/sbrkwbyzHYaAcpN2A" target="_blank">Google</a></td>
             </tr>
             </table><h3>HOTEL</h3>
         <table>
@@ -535,15 +559,15 @@
                 <th>❌</th>
                 <th>Place</th>
                 <th>District</th>
-                <th>Google Map Link</th>
+                <th>Map</th>
             </tr>
         
             <tr>
-                <td><input type="checkbox" class="green" name="group48" onclick="onlyOneCheckbox('group48', this)"></td>
-                <td><input type="checkbox" class="yellow" name="group48" onclick="onlyOneCheckbox('group48', this)" checked></td>
-                <td><input type="checkbox" class="red" name="group48" onclick="onlyOneCheckbox('group48', this)"></td>
+                <td><input type="checkbox" class="green" id="group48_green" name="group48" onclick="onlyOneCheckbox('group48', this)"></td>
+                <td><input type="checkbox" class="yellow" id="group48_yellow" name="group48" onclick="onlyOneCheckbox('group48', this)" checked></td>
+                <td><input type="checkbox" class="red" id="group48_red" name="group48" onclick="onlyOneCheckbox('group48', this)"></td>
                 <td>Nicecy Boutique Hotel</td>
                 <td>1</td>
-                <td><a href="https://maps.app.goo.gl/7kphMmfZb9QyUeqJA" target="_blank">Google Maps</a></td>
+                <td><a href="https://maps.app.goo.gl/7kphMmfZb9QyUeqJA" target="_blank">Google</a></td>
             </tr>
             </table>
