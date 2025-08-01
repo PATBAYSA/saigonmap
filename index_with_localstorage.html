@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_709d78e5755988ba2a330e640d2cb05b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_709d78e5755988ba2a330e640d2cb05b" ></div>
+        
+    
+<style>
+#layer-tools {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background: white;
+    border-radius: 6px;
+    padding: 4px 8px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    font-size: 12px;
+}
+#layer-tools button {
+    margin: 2px 0;
+    width: 100%;
+    font-size: 11px;
+    padding: 3px 6px;
+}
+</style>
+
+<div id="layer-tools">
+    <button onclick="checkAllLayers()">Check All</button>
+    <button onclick="uncheckAllLayers()">Uncheck All</button>
+</div>
+
+<script>
+function checkAllLayers() {
+    document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]').forEach(cb => {
+        if (!cb.checked) cb.click();
+    });
+}
+function uncheckAllLayers() {
+    document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]').forEach(cb => {
+        if (cb.checked) cb.click();
+    });
+}
+</script>
+
+<script>
+function saveLayerStates() {
+    const states = {};
+    document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]').forEach(cb => {
+        const label = cb.parentNode.innerText.trim();
+        states[label] = cb.checked;
+    });
+    localStorage.setItem('layerStates', JSON.stringify(states));
+}
+
+function loadLayerStates() {
+    const states = JSON.parse(localStorage.getItem('layerStates') || '{}');
+    document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]').forEach(cb => {
+        const label = cb.parentNode.innerText.trim();
+        const shouldCheck = states[label];
+        if (typeof shouldCheck === "boolean" && cb.checked !== shouldCheck) {
+            cb.click();
+        }
+    });
+}
+
+window.addEventListener("load", function () {
+    loadLayerStates();
+    document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener("change", saveLayerStates);
+    });
+});
+</script>
+
+</body>
+<script>
+    
+    
+            var map_709d78e5755988ba2a330e640d2cb05b = L.map(
+                "map_709d78e5755988ba2a330e640d2cb05b",
+                {
+                    center: [10.775, 106.7],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_709d78e5755988ba2a330e640d2cb05b);
+
+            
+
+        
+    
+            var tile_layer_3ff5a48be23a5d529f7e171a144836f4 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_e9b7ec6f1cd4e2a2b319cfbeff10d51b = L.marker(
+                [10.77175776296314, 106.696147808295],
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var icon_4bec86065f2fecbff487355be77f9049 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_e9b7ec6f1cd4e2a2b319cfbeff10d51b.setIcon(icon_4bec86065f2fecbff487355be77f9049);
+        
+    
+        var popup_8db89bc848ea0e1b946806339e62cd8c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_9abb8469a7a9a85e369aa0683c0001e5 = $(`<div id="html_9abb8469a7a9a85e369aa0683c0001e5" style="width: 100.0%; height: 100.0%;"><b>Nicecy Boutique Hotel</b><br>HOTEL<br><a href='https://maps.app.goo.gl/7kphMmfZb9QyUeqJA' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_8db89bc848ea0e1b946806339e62cd8c.setContent(html_9abb8469a7a9a85e369aa0683c0001e5);
+        
+
+        marker_e9b7ec6f1cd4e2a2b319cfbeff10d51b.bindPopup(popup_8db89bc848ea0e1b946806339e62cd8c)
+        ;
+
+        
+    
+    
+            marker_e9b7ec6f1cd4e2a2b319cfbeff10d51b.bindTooltip(
+                `<div>
+                     Nicecy Boutique Hotel
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_102077b87d34066bd2b1e0d3c0524319 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_3d993b24cc42a7da3712038bd6807f7a = L.marker(
+                [10.804485024342785, 106.74397422615206],
+                {}
+            ).addTo(feature_group_102077b87d34066bd2b1e0d3c0524319);
+        
+    
+            var icon_739033df2c4938fdf8739ebdb3c8685a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_3d993b24cc42a7da3712038bd6807f7a.setIcon(icon_739033df2c4938fdf8739ebdb3c8685a);
+        
+    
+        var popup_a9095398c5e49c406dfca98d07fc5130 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8a7ab419bdfe0465514c1743475d4930 = $(`<div id="html_8a7ab419bdfe0465514c1743475d4930" style="width: 100.0%; height: 100.0%;"><b>Man Moi</b><br>Michelin Viet Cuisine<br><a href='https://maps.app.goo.gl/uXFvRYhZSiqEynFL7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_a9095398c5e49c406dfca98d07fc5130.setContent(html_8a7ab419bdfe0465514c1743475d4930);
+        
+
+        marker_3d993b24cc42a7da3712038bd6807f7a.bindPopup(popup_a9095398c5e49c406dfca98d07fc5130)
+        ;
+
+        
+    
+    
+            marker_3d993b24cc42a7da3712038bd6807f7a.bindTooltip(
+                `<div>
+                     Man Moi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_717a072ff6d6772449d7294596fbff6a = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_b6d0000ccb5d18365fbb7afe5d836819 = L.marker(
+                [10.77337106942371, 106.69761552792187],
+                {}
+            ).addTo(feature_group_717a072ff6d6772449d7294596fbff6a);
+        
+    
+            var icon_5ce649da2b77c7a6960d50b4170d0766 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_b6d0000ccb5d18365fbb7afe5d836819.setIcon(icon_5ce649da2b77c7a6960d50b4170d0766);
+        
+    
+        var popup_94cc368092acebfd9f792c1e72d596fc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_cd551f8c5e326eb810fa8ce10405157f = $(`<div id="html_cd551f8c5e326eb810fa8ce10405157f" style="width: 100.0%; height: 100.0%;"><b>Pizza 4Ps</b><br>Pizza<br><a href='https://maps.app.goo.gl/cVcHgCz8xoN1UutS6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_94cc368092acebfd9f792c1e72d596fc.setContent(html_cd551f8c5e326eb810fa8ce10405157f);
+        
+
+        marker_b6d0000ccb5d18365fbb7afe5d836819.bindPopup(popup_94cc368092acebfd9f792c1e72d596fc)
+        ;
+
+        
+    
+    
+            marker_b6d0000ccb5d18365fbb7afe5d836819.bindTooltip(
+                `<div>
+                     Pizza 4Ps
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_e244e7b6f87b5f75bf828f489d2a5137 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_cd0ac9d650ca91682fd14cf469225ab3 = L.marker(
+                [10.768557545625795, 106.69885972996536],
+                {}
+            ).addTo(feature_group_e244e7b6f87b5f75bf828f489d2a5137);
+        
+    
+            var icon_e5b3c6308e6def60a56a3f10fd1f1bf5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cd0ac9d650ca91682fd14cf469225ab3.setIcon(icon_e5b3c6308e6def60a56a3f10fd1f1bf5);
+        
+    
+        var popup_f19a7a0c51016d1846eefea0d73e9888 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_cec0b80c34c8e1454eb9caf11c13413f = $(`<div id="html_cec0b80c34c8e1454eb9caf11c13413f" style="width: 100.0%; height: 100.0%;"><b>Bo Ne Ba Nui</b><br>Dipping Bahn Mi<br><a href='https://maps.app.goo.gl/LtHQrVGYA9M4ZGzm9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_f19a7a0c51016d1846eefea0d73e9888.setContent(html_cec0b80c34c8e1454eb9caf11c13413f);
+        
+
+        marker_cd0ac9d650ca91682fd14cf469225ab3.bindPopup(popup_f19a7a0c51016d1846eefea0d73e9888)
+        ;
+
+        
+    
+    
+            marker_cd0ac9d650ca91682fd14cf469225ab3.bindTooltip(
+                `<div>
+                     Bo Ne Ba Nui
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_b7240f69ce5b4d0c2cca54e6fb30ea15 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_cc796255b6c850c1dbe84923d5c59b44 = L.marker(
+                [10.760729903857586, 106.70330749201985],
+                {}
+            ).addTo(feature_group_b7240f69ce5b4d0c2cca54e6fb30ea15);
+        
+    
+            var icon_a4ab0b3f200fc8539b3e0b33e2850206 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cc796255b6c850c1dbe84923d5c59b44.setIcon(icon_a4ab0b3f200fc8539b3e0b33e2850206);
+        
+    
+        var popup_0aaa1cd64fa90b1a87db9889ddeac712 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_66695cd41239f40c8c12e8febdf6bc85 = $(`<div id="html_66695cd41239f40c8c12e8febdf6bc85" style="width: 100.0%; height: 100.0%;"><b>Oc Oanh</b><br>Shellfish<br><a href='https://maps.app.goo.gl/asqSwiNatLVvTRf76' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_0aaa1cd64fa90b1a87db9889ddeac712.setContent(html_66695cd41239f40c8c12e8febdf6bc85);
+        
+
+        marker_cc796255b6c850c1dbe84923d5c59b44.bindPopup(popup_0aaa1cd64fa90b1a87db9889ddeac712)
+        ;
+
+        
+    
+    
+            marker_cc796255b6c850c1dbe84923d5c59b44.bindTooltip(
+                `<div>
+                     Oc Oanh
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_abb93a05473be2e641b57d024eba1995 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_f47754aa6f8eb1a5ebc7c4f32b9e1d97 = L.marker(
+                [10.774264120649006, 106.69700749521184],
+                {}
+            ).addTo(feature_group_abb93a05473be2e641b57d024eba1995);
+        
+    
+            var icon_649c18394b8ccfa4dd10503f9985d379 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_f47754aa6f8eb1a5ebc7c4f32b9e1d97.setIcon(icon_649c18394b8ccfa4dd10503f9985d379);
+        
+    
+        var popup_0cccbe9cd453b0e132d80c2ff3d51f93 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_94840e20a1c647daa8f4701baadd5c6b = $(`<div id="html_94840e20a1c647daa8f4701baadd5c6b" style="width: 100.0%; height: 100.0%;"><b>Taco Del Sol</b><br>Mexican<br><a href='https://maps.app.goo.gl/onfmTiDzKXsap17h8' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_0cccbe9cd453b0e132d80c2ff3d51f93.setContent(html_94840e20a1c647daa8f4701baadd5c6b);
+        
+
+        marker_f47754aa6f8eb1a5ebc7c4f32b9e1d97.bindPopup(popup_0cccbe9cd453b0e132d80c2ff3d51f93)
+        ;
+
+        
+    
+    
+            marker_f47754aa6f8eb1a5ebc7c4f32b9e1d97.bindTooltip(
+                `<div>
+                     Taco Del Sol
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_072655d890f184ac00417de47526b689 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_924900618ce86d8b000b10af1530c76d = L.marker(
+                [10.77386911114326, 106.69807740235399],
+                {}
+            ).addTo(feature_group_072655d890f184ac00417de47526b689);
+        
+    
+            var icon_e80e718eb4b963cc7e7d7b03e6315a8e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_924900618ce86d8b000b10af1530c76d.setIcon(icon_e80e718eb4b963cc7e7d7b03e6315a8e);
+        
+    
+        var popup_72974a5f9b7f0f6cc22352451f874f70 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_842655ccf1467d1ffb6c6f84cd6de068 = $(`<div id="html_842655ccf1467d1ffb6c6f84cd6de068" style="width: 100.0%; height: 100.0%;"><b>Bep Me In</b><br>Gourmand Viet Cuisine<br><a href='https://maps.app.goo.gl/khu8hQmMBD9iqXBD8' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_72974a5f9b7f0f6cc22352451f874f70.setContent(html_842655ccf1467d1ffb6c6f84cd6de068);
+        
+
+        marker_924900618ce86d8b000b10af1530c76d.bindPopup(popup_72974a5f9b7f0f6cc22352451f874f70)
+        ;
+
+        
+    
+    
+            marker_924900618ce86d8b000b10af1530c76d.bindTooltip(
+                `<div>
+                     Bep Me In
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_8eb9eed0d4f7e817062c534b0bb05040 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_4f6e89e495724e949256f56c234044f2 = L.marker(
+                [10.794463284719443, 106.6693116994767],
+                {}
+            ).addTo(feature_group_8eb9eed0d4f7e817062c534b0bb05040);
+        
+    
+            var icon_c8e37b220f1fba40621a803f043dc229 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_4f6e89e495724e949256f56c234044f2.setIcon(icon_c8e37b220f1fba40621a803f043dc229);
+        
+    
+        var popup_69dafc629aca7461a3d8a5f5c401a65e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0f025b7edc9d484f0466f8db9d48e991 = $(`<div id="html_0f025b7edc9d484f0466f8db9d48e991" style="width: 100.0%; height: 100.0%;"><b>Com Tam Ba Ghien </b><br>Michelin Broken Rice<br><a href='https://maps.app.goo.gl/K4mTtmJK34Vx6ayC7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_69dafc629aca7461a3d8a5f5c401a65e.setContent(html_0f025b7edc9d484f0466f8db9d48e991);
+        
+
+        marker_4f6e89e495724e949256f56c234044f2.bindPopup(popup_69dafc629aca7461a3d8a5f5c401a65e)
+        ;
+
+        
+    
+    
+            marker_4f6e89e495724e949256f56c234044f2.bindTooltip(
+                `<div>
+                     Com Tam Ba Ghien 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_70abb6d8b1dc9838ab7967ad4f412571 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_3e21015272ac5db990075cc8f511b546 = L.marker(
+                [10.786475168907984, 106.68619185859562],
+                {}
+            ).addTo(feature_group_70abb6d8b1dc9838ab7967ad4f412571);
+        
+    
+            var icon_049e6d5c69e0b035b1e078ec0371d867 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_3e21015272ac5db990075cc8f511b546.setIcon(icon_049e6d5c69e0b035b1e078ec0371d867);
+        
+    
+        var popup_4ed3bea355338f62ee279f5104f89cb9 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e2c836118546c7e6f9bed7f75d0f5929 = $(`<div id="html_e2c836118546c7e6f9bed7f75d0f5929" style="width: 100.0%; height: 100.0%;"><b>Ngam Café</b><br>Coffee<br><a href='https://maps.app.goo.gl/oCzempy6X83Mem12A' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_4ed3bea355338f62ee279f5104f89cb9.setContent(html_e2c836118546c7e6f9bed7f75d0f5929);
+        
+
+        marker_3e21015272ac5db990075cc8f511b546.bindPopup(popup_4ed3bea355338f62ee279f5104f89cb9)
+        ;
+
+        
+    
+    
+            marker_3e21015272ac5db990075cc8f511b546.bindTooltip(
+                `<div>
+                     Ngam Café
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_723490ce337f6f8c2f61c4edc650d36f = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_d3caf27a3bff45775ba1d390944d18c6 = L.marker(
+                [10.789594417050285, 106.69132291816004],
+                {}
+            ).addTo(feature_group_723490ce337f6f8c2f61c4edc650d36f);
+        
+    
+            var icon_ff978e8b0527af358676b254eea18a88 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_d3caf27a3bff45775ba1d390944d18c6.setIcon(icon_ff978e8b0527af358676b254eea18a88);
+        
+    
+        var popup_05e74988057a3a888b2281ac0dd3015b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ad4eb1087b3eca1040b31d6b4f80b627 = $(`<div id="html_ad4eb1087b3eca1040b31d6b4f80b627" style="width: 100.0%; height: 100.0%;"><b>Ban Xeo 46A</b><br>Viet Pancake<br><a href='https://maps.app.goo.gl/RnGBq1sA1321njY57' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_05e74988057a3a888b2281ac0dd3015b.setContent(html_ad4eb1087b3eca1040b31d6b4f80b627);
+        
+
+        marker_d3caf27a3bff45775ba1d390944d18c6.bindPopup(popup_05e74988057a3a888b2281ac0dd3015b)
+        ;
+
+        
+    
+    
+            marker_d3caf27a3bff45775ba1d390944d18c6.bindTooltip(
+                `<div>
+                     Ban Xeo 46A
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_0367b3954973781ad9233a5adb1700e9 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_04b692a8e20a348dba3bd713b0907eb5 = L.marker(
+                [10.771532651848924, 106.69239678274866],
+                {}
+            ).addTo(feature_group_0367b3954973781ad9233a5adb1700e9);
+        
+    
+            var icon_2fa2281e41281817acfbdcfe93ef9bee = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_04b692a8e20a348dba3bd713b0907eb5.setIcon(icon_2fa2281e41281817acfbdcfe93ef9bee);
+        
+    
+        var popup_e80cdbca3692829f40aab68da7482e5c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_046a399bc8b831356e8904fbb25f7b3a = $(`<div id="html_046a399bc8b831356e8904fbb25f7b3a" style="width: 100.0%; height: 100.0%;"><b>Banh Mi Huynh Hoa</b><br>Banh Mi<br><a href='https://maps.app.goo.gl/e42Q8Nw34c6XrueH6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_e80cdbca3692829f40aab68da7482e5c.setContent(html_046a399bc8b831356e8904fbb25f7b3a);
+        
+
+        marker_04b692a8e20a348dba3bd713b0907eb5.bindPopup(popup_e80cdbca3692829f40aab68da7482e5c)
+        ;
+
+        
+    
+    
+            marker_04b692a8e20a348dba3bd713b0907eb5.bindTooltip(
+                `<div>
+                     Banh Mi Huynh Hoa
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_6b597c85c618ab2c2bdac4d42abd7fd1 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_cc0d08e6f998c16f096132b2b2304598 = L.marker(
+                [10.791934567205903, 106.70446716701731],
+                {}
+            ).addTo(feature_group_6b597c85c618ab2c2bdac4d42abd7fd1);
+        
+    
+            var icon_53c3e8622a1fb2063f47167089ecc84d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cc0d08e6f998c16f096132b2b2304598.setIcon(icon_53c3e8622a1fb2063f47167089ecc84d);
+        
+    
+        var popup_ab4c380aa7fcf4b0e4eebc4e2033759b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c5cbb9f69f7f5261b14002cacd967856 = $(`<div id="html_c5cbb9f69f7f5261b14002cacd967856" style="width: 100.0%; height: 100.0%;"><b>Pho Phuong</b><br>Pho<br><a href='https://maps.app.goo.gl/K2hAW4X9bTZzRyNK8' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_ab4c380aa7fcf4b0e4eebc4e2033759b.setContent(html_c5cbb9f69f7f5261b14002cacd967856);
+        
+
+        marker_cc0d08e6f998c16f096132b2b2304598.bindPopup(popup_ab4c380aa7fcf4b0e4eebc4e2033759b)
+        ;
+
+        
+    
+    
+            marker_cc0d08e6f998c16f096132b2b2304598.bindTooltip(
+                `<div>
+                     Pho Phuong
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_b17a60b453cb3325d9ce4cce69a84187 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_141937985a81f7258d290307eac1f88a = L.marker(
+                [10.79017240783325, 106.69788511620357],
+                {}
+            ).addTo(feature_group_b17a60b453cb3325d9ce4cce69a84187);
+        
+    
+            var icon_b7a040bd1b6e3def19f25e7bc57b6171 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_141937985a81f7258d290307eac1f88a.setIcon(icon_b7a040bd1b6e3def19f25e7bc57b6171);
+        
+    
+        var popup_d80e062a2a8394faa7fadd770ebc841d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f07d9293dc29689e13c88df6677d3ce1 = $(`<div id="html_f07d9293dc29689e13c88df6677d3ce1" style="width: 100.0%; height: 100.0%;"><b>Quan Thuy 94</b><br>Crab<br><a href='https://maps.app.goo.gl/NDKkLJ1BWdqB8VD47' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_d80e062a2a8394faa7fadd770ebc841d.setContent(html_f07d9293dc29689e13c88df6677d3ce1);
+        
+
+        marker_141937985a81f7258d290307eac1f88a.bindPopup(popup_d80e062a2a8394faa7fadd770ebc841d)
+        ;
+
+        
+    
+    
+            marker_141937985a81f7258d290307eac1f88a.bindTooltip(
+                `<div>
+                     Quan Thuy 94
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_106197d336fd554f5f17f7f565c1a76d = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_d45acd877cba5f7c8e8f417ce5099057 = L.marker(
+                [10.771630649967427, 106.6858118272596],
+                {}
+            ).addTo(feature_group_106197d336fd554f5f17f7f565c1a76d);
+        
+    
+            var icon_cf63eb5d62fa63fe36b80f685c9463c7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_d45acd877cba5f7c8e8f417ce5099057.setIcon(icon_cf63eb5d62fa63fe36b80f685c9463c7);
+        
+    
+        var popup_16ef17550743e067ff1604f5225c6998 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_80007d386155faa6378ee71007960ab5 = $(`<div id="html_80007d386155faa6378ee71007960ab5" style="width: 100.0%; height: 100.0%;"><b>Quan Co Lieng</b><br>Bo La Lot<br><a href='https://maps.app.goo.gl/WdE4hdXMhsfBqVbd9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_16ef17550743e067ff1604f5225c6998.setContent(html_80007d386155faa6378ee71007960ab5);
+        
+
+        marker_d45acd877cba5f7c8e8f417ce5099057.bindPopup(popup_16ef17550743e067ff1604f5225c6998)
+        ;
+
+        
+    
+    
+            marker_d45acd877cba5f7c8e8f417ce5099057.bindTooltip(
+                `<div>
+                     Quan Co Lieng
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_b96d3c0ac9bd1ee68616c96944b5c83c = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_f2bb91fe076925d432fc3a0218fd5ef1 = L.marker(
+                [10.78670966983164, 106.68926472255441],
+                {}
+            ).addTo(feature_group_b96d3c0ac9bd1ee68616c96944b5c83c);
+        
+    
+            var icon_a465368bc13074a8658d1ee8bcfea459 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_f2bb91fe076925d432fc3a0218fd5ef1.setIcon(icon_a465368bc13074a8658d1ee8bcfea459);
+        
+    
+        var popup_6eb634f0c485cee5416cd336629642dd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5231748a89dd43abf9c91ab2efe53a92 = $(`<div id="html_5231748a89dd43abf9c91ab2efe53a92" style="width: 100.0%; height: 100.0%;"><b>Pho Hoa Pasteur</b><br>Pho<br><a href='https://maps.app.goo.gl/ptEmUsYkzahHbs3eA' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_6eb634f0c485cee5416cd336629642dd.setContent(html_5231748a89dd43abf9c91ab2efe53a92);
+        
+
+        marker_f2bb91fe076925d432fc3a0218fd5ef1.bindPopup(popup_6eb634f0c485cee5416cd336629642dd)
+        ;
+
+        
+    
+    
+            marker_f2bb91fe076925d432fc3a0218fd5ef1.bindTooltip(
+                `<div>
+                     Pho Hoa Pasteur
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_c4c9881349b462be5d88a2bac85f99be = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_bb4559c82bee6ea5921983f148aa6d96 = L.marker(
+                [10.76774816716248, 106.69369774021756],
+                {}
+            ).addTo(feature_group_c4c9881349b462be5d88a2bac85f99be);
+        
+    
+            var icon_e08612bc0deb632bb1133716a929586f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_bb4559c82bee6ea5921983f148aa6d96.setIcon(icon_e08612bc0deb632bb1133716a929586f);
+        
+    
+        var popup_242475a7c4200359a8df3360b7f12c0e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1db1d621e993804ea64a48073682ecec = $(`<div id="html_1db1d621e993804ea64a48073682ecec" style="width: 100.0%; height: 100.0%;"><b>Quan Ngon Bun Cha Hanoi</b><br>Bun Cha<br><a href='https://maps.app.goo.gl/nd6rKDLVhy1aHYrk6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_242475a7c4200359a8df3360b7f12c0e.setContent(html_1db1d621e993804ea64a48073682ecec);
+        
+
+        marker_bb4559c82bee6ea5921983f148aa6d96.bindPopup(popup_242475a7c4200359a8df3360b7f12c0e)
+        ;
+
+        
+    
+    
+            marker_bb4559c82bee6ea5921983f148aa6d96.bindTooltip(
+                `<div>
+                     Quan Ngon Bun Cha Hanoi
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_4684af25fe4752fb73170d1da41c1007 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_0c6621938c9c1e87e13ff43be1a9ca3d = L.marker(
+                [10.773413525647054, 106.69961988497906],
+                {}
+            ).addTo(feature_group_4684af25fe4752fb73170d1da41c1007);
+        
+    
+            var icon_370c4d5dc474e818388e3acdd5e1cb54 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_0c6621938c9c1e87e13ff43be1a9ca3d.setIcon(icon_370c4d5dc474e818388e3acdd5e1cb54);
+        
+    
+        var popup_5be1ef7fcee94aaff03c118827aa261c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2d3bd68c7fe06d5306acc6a3599fdb78 = $(`<div id="html_2d3bd68c7fe06d5306acc6a3599fdb78" style="width: 100.0%; height: 100.0%;"><b>Bun Thit Nuong Cha Gio</b><br>Bun Thit Nuong<br><a href='https://maps.app.goo.gl/EqismSYt5NCJBH6Y8' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_5be1ef7fcee94aaff03c118827aa261c.setContent(html_2d3bd68c7fe06d5306acc6a3599fdb78);
+        
+
+        marker_0c6621938c9c1e87e13ff43be1a9ca3d.bindPopup(popup_5be1ef7fcee94aaff03c118827aa261c)
+        ;
+
+        
+    
+    
+            marker_0c6621938c9c1e87e13ff43be1a9ca3d.bindTooltip(
+                `<div>
+                     Bun Thit Nuong Cha Gio
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_fadef2e5979ed20dbc2650f61b1b9744 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_6a80548efe5e84f6fe926340dc41742a = L.marker(
+                [10.774476062231898, 106.69798697074862],
+                {}
+            ).addTo(feature_group_fadef2e5979ed20dbc2650f61b1b9744);
+        
+    
+            var icon_93c90914c16cdee0fdf61b997ddc34c1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_6a80548efe5e84f6fe926340dc41742a.setIcon(icon_93c90914c16cdee0fdf61b997ddc34c1);
+        
+    
+        var popup_45b0001e948ab7790769e0a3edeb8a05 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_94c15eae573db86a812cb247dd93d60c = $(`<div id="html_94c15eae573db86a812cb247dd93d60c" style="width: 100.0%; height: 100.0%;"><b>Com Tam Moc </b><br>Broken Rice<br><a href='https://maps.app.goo.gl/83XD3PFXafpTAtJw9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_45b0001e948ab7790769e0a3edeb8a05.setContent(html_94c15eae573db86a812cb247dd93d60c);
+        
+
+        marker_6a80548efe5e84f6fe926340dc41742a.bindPopup(popup_45b0001e948ab7790769e0a3edeb8a05)
+        ;
+
+        
+    
+    
+            marker_6a80548efe5e84f6fe926340dc41742a.bindTooltip(
+                `<div>
+                     Com Tam Moc 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_f92fe65a9c00e192c8b619663a129b0c = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_7d001e9330461d6763fce1caa1429a30 = L.marker(
+                [10.778237698512456, 106.69860039009205],
+                {}
+            ).addTo(feature_group_f92fe65a9c00e192c8b619663a129b0c);
+        
+    
+            var icon_25d5dcaed617aae2969a0b4ec68ae656 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7d001e9330461d6763fce1caa1429a30.setIcon(icon_25d5dcaed617aae2969a0b4ec68ae656);
+        
+    
+        var popup_3f40a31a6da84decc7466234b660e020 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6f0ddc3f73c1891ef82cd9f0ef98ef38 = $(`<div id="html_6f0ddc3f73c1891ef82cd9f0ef98ef38" style="width: 100.0%; height: 100.0%;"><b>House Of Merlin Bar</b><br>Bar<br><a href='https://maps.app.goo.gl/q6hPi7E1LpPSz3K27' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_3f40a31a6da84decc7466234b660e020.setContent(html_6f0ddc3f73c1891ef82cd9f0ef98ef38);
+        
+
+        marker_7d001e9330461d6763fce1caa1429a30.bindPopup(popup_3f40a31a6da84decc7466234b660e020)
+        ;
+
+        
+    
+    
+            marker_7d001e9330461d6763fce1caa1429a30.bindTooltip(
+                `<div>
+                     House Of Merlin Bar
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_1795a5857c13892baa2f96a8dcbf012b = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_9d33e7881a6a931d34f2103d9446ccf4 = L.marker(
+                [10.783648697610767, 106.69625869001872],
+                {}
+            ).addTo(feature_group_1795a5857c13892baa2f96a8dcbf012b);
+        
+    
+            var icon_beeb4311b39fd8a8421a5b722def7f0f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_9d33e7881a6a931d34f2103d9446ccf4.setIcon(icon_beeb4311b39fd8a8421a5b722def7f0f);
+        
+    
+        var popup_9eed8abdd839f70161899e6357acc689 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_02fa04ccd7519120ccef3a953fb64ffe = $(`<div id="html_02fa04ccd7519120ccef3a953fb64ffe" style="width: 100.0%; height: 100.0%;"><b>Mille Mille</b><br>Pastries/Coffee<br><a href='https://maps.app.goo.gl/vjkcT6icS4H9o4MB9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_9eed8abdd839f70161899e6357acc689.setContent(html_02fa04ccd7519120ccef3a953fb64ffe);
+        
+
+        marker_9d33e7881a6a931d34f2103d9446ccf4.bindPopup(popup_9eed8abdd839f70161899e6357acc689)
+        ;
+
+        
+    
+    
+            marker_9d33e7881a6a931d34f2103d9446ccf4.bindTooltip(
+                `<div>
+                     Mille Mille
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_53ade914bf44fbf76861c6594ae00c74 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_7f5829ae409aa3aa45caa84d0a09f824 = L.marker(
+                [10.778199130263683, 106.69856858776348],
+                {}
+            ).addTo(feature_group_53ade914bf44fbf76861c6594ae00c74);
+        
+    
+            var icon_40e95c007623a7e3cc74347dcbf07431 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7f5829ae409aa3aa45caa84d0a09f824.setIcon(icon_40e95c007623a7e3cc74347dcbf07431);
+        
+    
+        var popup_52b1fcbf8376198d14db1847ae9dcf35 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_038bee0462aa9e79a9c9a851fdfb7858 = $(`<div id="html_038bee0462aa9e79a9c9a851fdfb7858" style="width: 100.0%; height: 100.0%;"><b>Xliii Specialty Coffee</b><br>Coffee<br><a href='https://maps.app.goo.gl/4RWQcqUqpd52FUXk7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_52b1fcbf8376198d14db1847ae9dcf35.setContent(html_038bee0462aa9e79a9c9a851fdfb7858);
+        
+
+        marker_7f5829ae409aa3aa45caa84d0a09f824.bindPopup(popup_52b1fcbf8376198d14db1847ae9dcf35)
+        ;
+
+        
+    
+    
+            marker_7f5829ae409aa3aa45caa84d0a09f824.bindTooltip(
+                `<div>
+                     Xliii Specialty Coffee
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_5d0a27577b982a43c9739c6dfeceb1dc = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_4b0c732caca55b341776f2e655db7d7a = L.marker(
+                [10.785765868599459, 106.69037208702287],
+                {}
+            ).addTo(feature_group_5d0a27577b982a43c9739c6dfeceb1dc);
+        
+    
+            var icon_bd00535bf142861b6eba42ca36eeb10e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_4b0c732caca55b341776f2e655db7d7a.setIcon(icon_bd00535bf142861b6eba42ca36eeb10e);
+        
+    
+        var popup_1a8940ba30539f77e6172131189f4d28 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3d95d06b0cc5ae023618b4631a0a7ea7 = $(`<div id="html_3d95d06b0cc5ae023618b4631a0a7ea7" style="width: 100.0%; height: 100.0%;"><b>Bakes Pasteur</b><br>Pastries/Coffee<br><a href='https://maps.app.goo.gl/CXkuYuV5USj9zpMw7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_1a8940ba30539f77e6172131189f4d28.setContent(html_3d95d06b0cc5ae023618b4631a0a7ea7);
+        
+
+        marker_4b0c732caca55b341776f2e655db7d7a.bindPopup(popup_1a8940ba30539f77e6172131189f4d28)
+        ;
+
+        
+    
+    
+            marker_4b0c732caca55b341776f2e655db7d7a.bindTooltip(
+                `<div>
+                     Bakes Pasteur
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_d94a2682448ef7125be361bc6b6e17ce = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_294e9777c57151e5310c37448e341838 = L.marker(
+                [10.77732583431299, 106.68342061210151],
+                {}
+            ).addTo(feature_group_d94a2682448ef7125be361bc6b6e17ce);
+        
+    
+            var icon_1849c80c2f0e9f5e7a5d4e5230f8734e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_294e9777c57151e5310c37448e341838.setIcon(icon_1849c80c2f0e9f5e7a5d4e5230f8734e);
+        
+    
+        var popup_8e1b7758e104dedfeeb8eac1912c88e0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1b2c74f2014c11d3311e62c602f8c0b7 = $(`<div id="html_1b2c74f2014c11d3311e62c602f8c0b7" style="width: 100.0%; height: 100.0%;"><b>Crab Shack</b><br>Crab Roe<br><a href='https://maps.app.goo.gl/KRCdFn9qD6Pz4WEB6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_8e1b7758e104dedfeeb8eac1912c88e0.setContent(html_1b2c74f2014c11d3311e62c602f8c0b7);
+        
+
+        marker_294e9777c57151e5310c37448e341838.bindPopup(popup_8e1b7758e104dedfeeb8eac1912c88e0)
+        ;
+
+        
+    
+    
+            marker_294e9777c57151e5310c37448e341838.bindTooltip(
+                `<div>
+                     Crab Shack
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_62b71d988cc37f659c19c32c64e8d4bc = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_d6c7fcbd740e0cbf857669e11578a688 = L.marker(
+                [10.784235675995863, 106.69801195767677],
+                {}
+            ).addTo(feature_group_62b71d988cc37f659c19c32c64e8d4bc);
+        
+    
+            var icon_2467fb0033224ff10691a99538750802 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_d6c7fcbd740e0cbf857669e11578a688.setIcon(icon_2467fb0033224ff10691a99538750802);
+        
+    
+        var popup_aa4cb2f6f7dd9ca24bef2157e3477e08 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_eaa74030577ce7f6937324e2ba60b66f = $(`<div id="html_eaa74030577ce7f6937324e2ba60b66f" style="width: 100.0%; height: 100.0%;"><b>Rue Miche</b><br>Shopping<br><a href='https://maps.app.goo.gl/E7RhrND7sSq3VrrA7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_aa4cb2f6f7dd9ca24bef2157e3477e08.setContent(html_eaa74030577ce7f6937324e2ba60b66f);
+        
+
+        marker_d6c7fcbd740e0cbf857669e11578a688.bindPopup(popup_aa4cb2f6f7dd9ca24bef2157e3477e08)
+        ;
+
+        
+    
+    
+            marker_d6c7fcbd740e0cbf857669e11578a688.bindTooltip(
+                `<div>
+                     Rue Miche
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_06e8b025a5781e08018205925f86bc42 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_fc78c53739bd3815cb55e7a85acc2087 = L.marker(
+                [10.76658451594319, 106.69378696469829],
+                {}
+            ).addTo(feature_group_06e8b025a5781e08018205925f86bc42);
+        
+    
+            var icon_6ab74531bb8d25de499935d382e63454 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fc78c53739bd3815cb55e7a85acc2087.setIcon(icon_6ab74531bb8d25de499935d382e63454);
+        
+    
+        var popup_11e152aafabaacb495677ec006edb33b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a2b6a387fdc4eb29a550608b5cd90075 = $(`<div id="html_a2b6a387fdc4eb29a550608b5cd90075" style="width: 100.0%; height: 100.0%;"><b>The Idiot</b><br>Shopping<br><a href='https://maps.app.goo.gl/4efwJ8BAgfUSB5zi9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_11e152aafabaacb495677ec006edb33b.setContent(html_a2b6a387fdc4eb29a550608b5cd90075);
+        
+
+        marker_fc78c53739bd3815cb55e7a85acc2087.bindPopup(popup_11e152aafabaacb495677ec006edb33b)
+        ;
+
+        
+    
+    
+            marker_fc78c53739bd3815cb55e7a85acc2087.bindTooltip(
+                `<div>
+                     The Idiot
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_3e524c3adc022fb2c38e4d9198ff24ec = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_dec5c115fa9a73c1f5bf6b2075b0cdf5 = L.marker(
+                [10.785752808883654, 106.6931991682033],
+                {}
+            ).addTo(feature_group_3e524c3adc022fb2c38e4d9198ff24ec);
+        
+    
+            var icon_c70043bf2ac13dae6c1b30a3589609d9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_dec5c115fa9a73c1f5bf6b2075b0cdf5.setIcon(icon_c70043bf2ac13dae6c1b30a3589609d9);
+        
+    
+        var popup_cb1fe430199ea4cfbd1cbdd32897df2b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_627c0b0d72e73005b1b2919c49fc4a67 = $(`<div id="html_627c0b0d72e73005b1b2919c49fc4a67" style="width: 100.0%; height: 100.0%;"><b>Seeson</b><br>Shopping<br><a href='https://maps.app.goo.gl/JvUkHLhRZHrwSjEV7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_cb1fe430199ea4cfbd1cbdd32897df2b.setContent(html_627c0b0d72e73005b1b2919c49fc4a67);
+        
+
+        marker_dec5c115fa9a73c1f5bf6b2075b0cdf5.bindPopup(popup_cb1fe430199ea4cfbd1cbdd32897df2b)
+        ;
+
+        
+    
+    
+            marker_dec5c115fa9a73c1f5bf6b2075b0cdf5.bindTooltip(
+                `<div>
+                     Seeson
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_898b73e81eca0a9f2d8a92a21747c8b0 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_9e2d42dbcea2e0976f8d76e36e8555e0 = L.marker(
+                [10.773473681455274, 106.70232544596229],
+                {}
+            ).addTo(feature_group_898b73e81eca0a9f2d8a92a21747c8b0);
+        
+    
+            var icon_aad8d689ade9357f031ad7bb20344ce8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9e2d42dbcea2e0976f8d76e36e8555e0.setIcon(icon_aad8d689ade9357f031ad7bb20344ce8);
+        
+    
+        var popup_adfa19b668a55da0c857ae24b3779052 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_9447e15de738f8e0648f5edab24683dd = $(`<div id="html_9447e15de738f8e0648f5edab24683dd" style="width: 100.0%; height: 100.0%;"><b>Ton That Thiep Street</b><br>Shopping Street<br><a href='https://maps.app.goo.gl/XPZCVkHtibuc5VQx7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_adfa19b668a55da0c857ae24b3779052.setContent(html_9447e15de738f8e0648f5edab24683dd);
+        
+
+        marker_9e2d42dbcea2e0976f8d76e36e8555e0.bindPopup(popup_adfa19b668a55da0c857ae24b3779052)
+        ;
+
+        
+    
+    
+            marker_9e2d42dbcea2e0976f8d76e36e8555e0.bindTooltip(
+                `<div>
+                     Ton That Thiep Street
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_94c9ecc3b4d26a15f0a5911e6ddebe6f = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_5dae546b27987c4aba6605cec1bf5d7c = L.marker(
+                [10.778210312939608, 106.70111147664721],
+                {}
+            ).addTo(feature_group_94c9ecc3b4d26a15f0a5911e6ddebe6f);
+        
+    
+            var icon_300a03de132dd49639a894ba1fcfde7f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_5dae546b27987c4aba6605cec1bf5d7c.setIcon(icon_300a03de132dd49639a894ba1fcfde7f);
+        
+    
+        var popup_ece3b649e13a4af809c49a8499b8228b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0ac2061dc05f4b36103ef6938a696d1d = $(`<div id="html_0ac2061dc05f4b36103ef6938a696d1d" style="width: 100.0%; height: 100.0%;"><b>The New Playground</b><br>Shopping<br><a href='https://maps.app.goo.gl/Yjd1iUAuGBSfYhecA' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_ece3b649e13a4af809c49a8499b8228b.setContent(html_0ac2061dc05f4b36103ef6938a696d1d);
+        
+
+        marker_5dae546b27987c4aba6605cec1bf5d7c.bindPopup(popup_ece3b649e13a4af809c49a8499b8228b)
+        ;
+
+        
+    
+    
+            marker_5dae546b27987c4aba6605cec1bf5d7c.bindTooltip(
+                `<div>
+                     The New Playground
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_44b19f6b605d4cbec97625895a6a6ab7 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_3ee115becdfaae8d8782b3f9d683e357 = L.marker(
+                [10.787085066168926, 106.67827023433888],
+                {}
+            ).addTo(feature_group_44b19f6b605d4cbec97625895a6a6ab7);
+        
+    
+            var icon_75afd14cb03a3fdb0c8e24cc075043c4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_3ee115becdfaae8d8782b3f9d683e357.setIcon(icon_75afd14cb03a3fdb0c8e24cc075043c4);
+        
+    
+        var popup_9fe4b884dbc12f7cf8b3bf9c5d85d225 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d5e674b563ae3274f2c9859e21365a49 = $(`<div id="html_d5e674b563ae3274f2c9859e21365a49" style="width: 100.0%; height: 100.0%;"><b>Tran Quoang Dieu Street</b><br>Shopping Street<br><a href='https://maps.app.goo.gl/4XPrpkg4ce8A2e318' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_9fe4b884dbc12f7cf8b3bf9c5d85d225.setContent(html_d5e674b563ae3274f2c9859e21365a49);
+        
+
+        marker_3ee115becdfaae8d8782b3f9d683e357.bindPopup(popup_9fe4b884dbc12f7cf8b3bf9c5d85d225)
+        ;
+
+        
+    
+    
+            marker_3ee115becdfaae8d8782b3f9d683e357.bindTooltip(
+                `<div>
+                     Tran Quoang Dieu Street
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_161c8df5de5b163f72c045f0ec602cdd = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_521c573fc853406cdbb81a25c42be26f = L.marker(
+                [10.773116181642646, 106.70104831038871],
+                {}
+            ).addTo(feature_group_161c8df5de5b163f72c045f0ec602cdd);
+        
+    
+            var icon_fbd3cd5c55933ede11fa6ab3f1b8ab64 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_521c573fc853406cdbb81a25c42be26f.setIcon(icon_fbd3cd5c55933ede11fa6ab3f1b8ab64);
+        
+    
+        var popup_deeaa560f9fa9d99f06394452837ed4a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1cbcffaa6ed6b82719e5990798cec249 = $(`<div id="html_1cbcffaa6ed6b82719e5990798cec249" style="width: 100.0%; height: 100.0%;"><b>Saigon Centre</b><br>Shopping<br><a href='https://maps.app.goo.gl/mEyAfSHUmh955qE16' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_deeaa560f9fa9d99f06394452837ed4a.setContent(html_1cbcffaa6ed6b82719e5990798cec249);
+        
+
+        marker_521c573fc853406cdbb81a25c42be26f.bindPopup(popup_deeaa560f9fa9d99f06394452837ed4a)
+        ;
+
+        
+    
+    
+            marker_521c573fc853406cdbb81a25c42be26f.bindTooltip(
+                `<div>
+                     Saigon Centre
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_2ca76260a4eb09fe9d3fbaf12d1f68df = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_1f502edc6afcdb75a2f0c7c2a80b3480 = L.marker(
+                [10.757527188839452, 106.67882383233075],
+                {}
+            ).addTo(feature_group_2ca76260a4eb09fe9d3fbaf12d1f68df);
+        
+    
+            var icon_196a948ea266a7090029b62bbbf5540e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_1f502edc6afcdb75a2f0c7c2a80b3480.setIcon(icon_196a948ea266a7090029b62bbbf5540e);
+        
+    
+        var popup_12febc82f509cff8054717e83b659d9b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0d849654c31286e6c0ca1fac1e5a0ea8 = $(`<div id="html_0d849654c31286e6c0ca1fac1e5a0ea8" style="width: 100.0%; height: 100.0%;"><b>Nguyen Trai</b><br>Shopping Street<br><a href='https://maps.app.goo.gl/4xPMSPNbUmQjDAA68' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_12febc82f509cff8054717e83b659d9b.setContent(html_0d849654c31286e6c0ca1fac1e5a0ea8);
+        
+
+        marker_1f502edc6afcdb75a2f0c7c2a80b3480.bindPopup(popup_12febc82f509cff8054717e83b659d9b)
+        ;
+
+        
+    
+    
+            marker_1f502edc6afcdb75a2f0c7c2a80b3480.bindTooltip(
+                `<div>
+                     Nguyen Trai
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_7d176bdb00e5b7ed29e8621dd914dbbd = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_e538353bb303f9b798819a42880dcccd = L.marker(
+                [10.78912746573161, 106.67733368857877],
+                {}
+            ).addTo(feature_group_7d176bdb00e5b7ed29e8621dd914dbbd);
+        
+    
+            var icon_0f4b5768fe9600facb90c6173babc602 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e538353bb303f9b798819a42880dcccd.setIcon(icon_0f4b5768fe9600facb90c6173babc602);
+        
+    
+        var popup_bb5142aac950a783296c8d3d432f275f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_17aa32baf6c64a81da487d86f526c129 = $(`<div id="html_17aa32baf6c64a81da487d86f526c129" style="width: 100.0%; height: 100.0%;"><b>Whose Studio</b><br>Shopping<br><a href='https://maps.app.goo.gl/aQrcjwS9E4F7f3Gz7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_bb5142aac950a783296c8d3d432f275f.setContent(html_17aa32baf6c64a81da487d86f526c129);
+        
+
+        marker_e538353bb303f9b798819a42880dcccd.bindPopup(popup_bb5142aac950a783296c8d3d432f275f)
+        ;
+
+        
+    
+    
+            marker_e538353bb303f9b798819a42880dcccd.bindTooltip(
+                `<div>
+                     Whose Studio
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_6ae82ed373b3078b2c399c6542de4ce7 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_824f65f303be1df3b876e1ac0fecc6d6 = L.marker(
+                [10.769040392167456, 106.69377268542253],
+                {}
+            ).addTo(feature_group_6ae82ed373b3078b2c399c6542de4ce7);
+        
+    
+            var icon_5cdc240554d78a9fe3c14df69b12e191 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_824f65f303be1df3b876e1ac0fecc6d6.setIcon(icon_5cdc240554d78a9fe3c14df69b12e191);
+        
+    
+        var popup_df5527878fdb3df8fd915faed0456809 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_84ac14402f8b5ac9644b194b70753e54 = $(`<div id="html_84ac14402f8b5ac9644b194b70753e54" style="width: 100.0%; height: 100.0%;"><b>Saigon Central Market</b><br>Market<br><a href='https://maps.app.goo.gl/5QZ6QybMeqdqbgQy5' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_df5527878fdb3df8fd915faed0456809.setContent(html_84ac14402f8b5ac9644b194b70753e54);
+        
+
+        marker_824f65f303be1df3b876e1ac0fecc6d6.bindPopup(popup_df5527878fdb3df8fd915faed0456809)
+        ;
+
+        
+    
+    
+            marker_824f65f303be1df3b876e1ac0fecc6d6.bindTooltip(
+                `<div>
+                     Saigon Central Market
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_143efb74021f28e8f808c1febb9f8fd9 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_5c68b530c90ca458076f86043aa396d5 = L.marker(
+                [10.772544018736522, 106.698019754821],
+                {}
+            ).addTo(feature_group_143efb74021f28e8f808c1febb9f8fd9);
+        
+    
+            var icon_08924ac25abb3ab6e732fe56e9561ebd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_5c68b530c90ca458076f86043aa396d5.setIcon(icon_08924ac25abb3ab6e732fe56e9561ebd);
+        
+    
+        var popup_d09e7ed286fa5bcfe7d3451fb7cdc4bf = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f360fdba22aaedefa8ea23647b224026 = $(`<div id="html_f360fdba22aaedefa8ea23647b224026" style="width: 100.0%; height: 100.0%;"><b>Ben Thanh Market</b><br>Market<br><a href='https://maps.app.goo.gl/sbrkwbyzHYaAcpN2A' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_d09e7ed286fa5bcfe7d3451fb7cdc4bf.setContent(html_f360fdba22aaedefa8ea23647b224026);
+        
+
+        marker_5c68b530c90ca458076f86043aa396d5.bindPopup(popup_d09e7ed286fa5bcfe7d3451fb7cdc4bf)
+        ;
+
+        
+    
+    
+            marker_5c68b530c90ca458076f86043aa396d5.bindTooltip(
+                `<div>
+                     Ben Thanh Market
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_eb6c5ba124ec0cf5e1f246d5d837c7ad = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_384c55d8685534efdf951953aeb2eb95 = L.marker(
+                [11.141648461962385, 106.46160242711896],
+                {}
+            ).addTo(feature_group_eb6c5ba124ec0cf5e1f246d5d837c7ad);
+        
+    
+            var icon_88f7c19783d69e76b631538b1adb1255 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_384c55d8685534efdf951953aeb2eb95.setIcon(icon_88f7c19783d69e76b631538b1adb1255);
+        
+    
+        var popup_789fd22a0f7ae3f0c23c8189278de96b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3d6b627f9711c63a65de43bbc55d511f = $(`<div id="html_3d6b627f9711c63a65de43bbc55d511f" style="width: 100.0%; height: 100.0%;"><b>Cu Chi Tunnel</b><br>Attraction<br><a href='https://maps.app.goo.gl/JyhiXbrNgihdUHpW6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_789fd22a0f7ae3f0c23c8189278de96b.setContent(html_3d6b627f9711c63a65de43bbc55d511f);
+        
+
+        marker_384c55d8685534efdf951953aeb2eb95.bindPopup(popup_789fd22a0f7ae3f0c23c8189278de96b)
+        ;
+
+        
+    
+    
+            marker_384c55d8685534efdf951953aeb2eb95.bindTooltip(
+                `<div>
+                     Cu Chi Tunnel
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_20064491337a324deaa1cfaacfa5424c = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_2ed98ba6271304a8830c67cde9a58b86 = L.marker(
+                [10.780979949032995, 106.70007217922141],
+                {}
+            ).addTo(feature_group_20064491337a324deaa1cfaacfa5424c);
+        
+    
+            var icon_cbcce446ba791e45166fe6bf96619355 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_2ed98ba6271304a8830c67cde9a58b86.setIcon(icon_cbcce446ba791e45166fe6bf96619355);
+        
+    
+        var popup_e955cf0394623badd2fa5e2f6b79b6f9 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7fd776048661d3dff6a61f5b3ab1dd18 = $(`<div id="html_7fd776048661d3dff6a61f5b3ab1dd18" style="width: 100.0%; height: 100.0%;"><b>Book Street</b><br>Attraction<br><a href='https://maps.app.goo.gl/FmXuTx4jacrnEWpJA' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_e955cf0394623badd2fa5e2f6b79b6f9.setContent(html_7fd776048661d3dff6a61f5b3ab1dd18);
+        
+
+        marker_2ed98ba6271304a8830c67cde9a58b86.bindPopup(popup_e955cf0394623badd2fa5e2f6b79b6f9)
+        ;
+
+        
+    
+    
+            marker_2ed98ba6271304a8830c67cde9a58b86.bindTooltip(
+                `<div>
+                     Book Street
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_75bd871313220197d7c1339d5ff3b83e = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_7fc35a32d83ac2fec1ef2b8d4e1ed994 = L.marker(
+                [10.782915472169503, 106.69009520774327],
+                {}
+            ).addTo(feature_group_75bd871313220197d7c1339d5ff3b83e);
+        
+    
+            var icon_74c0edc1d54652316f3333b2a85b7e11 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_7fc35a32d83ac2fec1ef2b8d4e1ed994.setIcon(icon_74c0edc1d54652316f3333b2a85b7e11);
+        
+    
+        var popup_56ff218a28d43501e49a3a4be980a32c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0c986b888329a4a6dbdc6f16979a7375 = $(`<div id="html_0c986b888329a4a6dbdc6f16979a7375" style="width: 100.0%; height: 100.0%;"><b>Hop On Hop Off Bus</b><br>Attraction<br><a href='https://maps.app.goo.gl/WfB32jFgmoon7tDh9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_56ff218a28d43501e49a3a4be980a32c.setContent(html_0c986b888329a4a6dbdc6f16979a7375);
+        
+
+        marker_7fc35a32d83ac2fec1ef2b8d4e1ed994.bindPopup(popup_56ff218a28d43501e49a3a4be980a32c)
+        ;
+
+        
+    
+    
+            marker_7fc35a32d83ac2fec1ef2b8d4e1ed994.bindTooltip(
+                `<div>
+                     Hop On Hop Off Bus
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_e67b640e541a952ff495ba58f0ad75f7 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_471913127fc71d836d275eccd190e27a = L.marker(
+                [10.774057556160242, 106.7040990380168],
+                {}
+            ).addTo(feature_group_e67b640e541a952ff495ba58f0ad75f7);
+        
+    
+            var icon_9af39cd4ff41673914e14cb25ce9a697 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_471913127fc71d836d275eccd190e27a.setIcon(icon_9af39cd4ff41673914e14cb25ce9a697);
+        
+    
+        var popup_4d4584d9beed256ec72c2d81ce7c7e2f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4a6f67fd5f4ce3aa7c2843bc79cfb555 = $(`<div id="html_4a6f67fd5f4ce3aa7c2843bc79cfb555" style="width: 100.0%; height: 100.0%;"><b>Café Apartments</b><br>Attraction<br><a href='https://maps.app.goo.gl/dkXpSywrq425tE8r5' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_4d4584d9beed256ec72c2d81ce7c7e2f.setContent(html_4a6f67fd5f4ce3aa7c2843bc79cfb555);
+        
+
+        marker_471913127fc71d836d275eccd190e27a.bindPopup(popup_4d4584d9beed256ec72c2d81ce7c7e2f)
+        ;
+
+        
+    
+    
+            marker_471913127fc71d836d275eccd190e27a.bindTooltip(
+                `<div>
+                     Café Apartments
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_879798380354a06dee5a727c22488750 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_d4a1eddebe880457cb37df568de538d0 = L.marker(
+                [10.779527071798785, 106.69211106384698],
+                {}
+            ).addTo(feature_group_879798380354a06dee5a727c22488750);
+        
+    
+            var icon_7286b1044f2e95df71353509b7d56075 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_d4a1eddebe880457cb37df568de538d0.setIcon(icon_7286b1044f2e95df71353509b7d56075);
+        
+    
+        var popup_259de7bd4f66c05abd43771f0f5e1eb1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d3742ba0923bee5fa3251aba7847ed03 = $(`<div id="html_d3742ba0923bee5fa3251aba7847ed03" style="width: 100.0%; height: 100.0%;"><b>War Remnant Museum</b><br>Attraction<br><a href='https://maps.app.goo.gl/iZ1Qm4jSiF6oXHWN9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_259de7bd4f66c05abd43771f0f5e1eb1.setContent(html_d3742ba0923bee5fa3251aba7847ed03);
+        
+
+        marker_d4a1eddebe880457cb37df568de538d0.bindPopup(popup_259de7bd4f66c05abd43771f0f5e1eb1)
+        ;
+
+        
+    
+    
+            marker_d4a1eddebe880457cb37df568de538d0.bindTooltip(
+                `<div>
+                     War Remnant Museum
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_91feb75815d70cf60bb6f4a8f64e3bed = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_fbab0a170607334733a546933451b2e1 = L.marker(
+                [10.779804111831181, 106.69901199375893],
+                {}
+            ).addTo(feature_group_91feb75815d70cf60bb6f4a8f64e3bed);
+        
+    
+            var icon_36eb41f280c8fe0d8b90b28ebfda4d18 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_fbab0a170607334733a546933451b2e1.setIcon(icon_36eb41f280c8fe0d8b90b28ebfda4d18);
+        
+    
+        var popup_2df8184090fe2186d64b2f6c6ff8fd64 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b5a05094fab46855bc6dbaecdfea39fa = $(`<div id="html_b5a05094fab46855bc6dbaecdfea39fa" style="width: 100.0%; height: 100.0%;"><b>Notre Dame Cathedral</b><br>Attraction<br><a href='https://maps.app.goo.gl/RPf4ZEnCvcyJXP4u6' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_2df8184090fe2186d64b2f6c6ff8fd64.setContent(html_b5a05094fab46855bc6dbaecdfea39fa);
+        
+
+        marker_fbab0a170607334733a546933451b2e1.bindPopup(popup_2df8184090fe2186d64b2f6c6ff8fd64)
+        ;
+
+        
+    
+    
+            marker_fbab0a170607334733a546933451b2e1.bindTooltip(
+                `<div>
+                     Notre Dame Cathedral
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_1e670e5dcb67738e4eb4eaf722c83869 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_fe6aaf0cdb1c086155c7ea6a06a5ec98 = L.marker(
+                [10.779925146224793, 106.69990162309738],
+                {}
+            ).addTo(feature_group_1e670e5dcb67738e4eb4eaf722c83869);
+        
+    
+            var icon_0e5e73212f4c274bdf714fe4ba6a341e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_fe6aaf0cdb1c086155c7ea6a06a5ec98.setIcon(icon_0e5e73212f4c274bdf714fe4ba6a341e);
+        
+    
+        var popup_c049f08790b035e8b9b3003044cfab7a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_25e75e46855548e536bab30406568c95 = $(`<div id="html_25e75e46855548e536bab30406568c95" style="width: 100.0%; height: 100.0%;"><b>Saigon Central Post Office</b><br>Attraction<br><a href='https://maps.app.goo.gl/EUW5KxEXzxYpbdb19' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_c049f08790b035e8b9b3003044cfab7a.setContent(html_25e75e46855548e536bab30406568c95);
+        
+
+        marker_fe6aaf0cdb1c086155c7ea6a06a5ec98.bindPopup(popup_c049f08790b035e8b9b3003044cfab7a)
+        ;
+
+        
+    
+    
+            marker_fe6aaf0cdb1c086155c7ea6a06a5ec98.bindTooltip(
+                `<div>
+                     Saigon Central Post Office
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_bdc9460764952a108998fa407d115472 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_0033b623448a05e886f9dcfbce17d9dc = L.marker(
+                [10.776641230017185, 106.70317409290708],
+                {}
+            ).addTo(feature_group_bdc9460764952a108998fa407d115472);
+        
+    
+            var icon_3485964e696b09a655a41d806e15103d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_0033b623448a05e886f9dcfbce17d9dc.setIcon(icon_3485964e696b09a655a41d806e15103d);
+        
+    
+        var popup_581c642f8fac836594263d168ec12f32 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_01ef5fc61771addca9a190d68dc70d8e = $(`<div id="html_01ef5fc61771addca9a190d68dc70d8e" style="width: 100.0%; height: 100.0%;"><b>Saigon Opera House</b><br>Attraction<br><a href='https://maps.app.goo.gl/jJaggK3UVmiBbDdF7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_581c642f8fac836594263d168ec12f32.setContent(html_01ef5fc61771addca9a190d68dc70d8e);
+        
+
+        marker_0033b623448a05e886f9dcfbce17d9dc.bindPopup(popup_581c642f8fac836594263d168ec12f32)
+        ;
+
+        
+    
+    
+            marker_0033b623448a05e886f9dcfbce17d9dc.bindTooltip(
+                `<div>
+                     Saigon Opera House
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_d4d2164780f41294ec8cd14c67d4f30d = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_10904d672215b239c35bd73f567ca00f = L.marker(
+                [10.767719780709161, 106.69402226436962],
+                {}
+            ).addTo(feature_group_d4d2164780f41294ec8cd14c67d4f30d);
+        
+    
+            var icon_1206b10ea0e6a084c12996914d361dae = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_10904d672215b239c35bd73f567ca00f.setIcon(icon_1206b10ea0e6a084c12996914d361dae);
+        
+    
+        var popup_41cdaff1fdb46b8a93dbf52f427a7a7b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2dffba0e1eddd24ccd4c58727a1bb618 = $(`<div id="html_2dffba0e1eddd24ccd4c58727a1bb618" style="width: 100.0%; height: 100.0%;"><b>Bui Vien Walking Street</b><br>Attraction<br><a href='https://maps.app.goo.gl/hKuoa4ToPhk6aTxq7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_41cdaff1fdb46b8a93dbf52f427a7a7b.setContent(html_2dffba0e1eddd24ccd4c58727a1bb618);
+        
+
+        marker_10904d672215b239c35bd73f567ca00f.bindPopup(popup_41cdaff1fdb46b8a93dbf52f427a7a7b)
+        ;
+
+        
+    
+    
+            marker_10904d672215b239c35bd73f567ca00f.bindTooltip(
+                `<div>
+                     Bui Vien Walking Street
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_689693f7a6ff1bfc7b4bfccbca184a87 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_30a34a877e1c481777d9edd1a09e286d = L.marker(
+                [10.788355771452213, 106.69067682072124],
+                {}
+            ).addTo(feature_group_689693f7a6ff1bfc7b4bfccbca184a87);
+        
+    
+            var icon_0c819f7a7e7b73da1d31b6912b731aca = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_30a34a877e1c481777d9edd1a09e286d.setIcon(icon_0c819f7a7e7b73da1d31b6912b731aca);
+        
+    
+        var popup_221ee2d296553b4e4e38e377046fee8e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_154f747922da2d591196c5f4577cf3a0 = $(`<div id="html_154f747922da2d591196c5f4577cf3a0" style="width: 100.0%; height: 100.0%;"><b>Tan Dinh Pink Church</b><br>Attraction<br><a href='https://maps.app.goo.gl/NsqGsMrNhjARzE9k7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_221ee2d296553b4e4e38e377046fee8e.setContent(html_154f747922da2d591196c5f4577cf3a0);
+        
+
+        marker_30a34a877e1c481777d9edd1a09e286d.bindPopup(popup_221ee2d296553b4e4e38e377046fee8e)
+        ;
+
+        
+    
+    
+            marker_30a34a877e1c481777d9edd1a09e286d.bindTooltip(
+                `<div>
+                     Tan Dinh Pink Church
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_37a5d21b6ac450da3e9070dbbb7d38f1 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_229fad93dbbdde49f7a33dd4f55d946a = L.marker(
+                [10.79513698571885, 106.72209185878422],
+                {}
+            ).addTo(feature_group_37a5d21b6ac450da3e9070dbbb7d38f1);
+        
+    
+            var icon_4c97a7a18daac56f2e23862410641def = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_229fad93dbbdde49f7a33dd4f55d946a.setIcon(icon_4c97a7a18daac56f2e23862410641def);
+        
+    
+        var popup_61e6301da680fcec03570ac60b6b211c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_423bdb4b07c6df0bd39dd401ff3f2e16 = $(`<div id="html_423bdb4b07c6df0bd39dd401ff3f2e16" style="width: 100.0%; height: 100.0%;"><b>Landmark 81</b><br>Attraction<br><a href='https://maps.app.goo.gl/yW6FiWiHqyvPp7L6A' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_61e6301da680fcec03570ac60b6b211c.setContent(html_423bdb4b07c6df0bd39dd401ff3f2e16);
+        
+
+        marker_229fad93dbbdde49f7a33dd4f55d946a.bindPopup(popup_61e6301da680fcec03570ac60b6b211c)
+        ;
+
+        
+    
+    
+            marker_229fad93dbbdde49f7a33dd4f55d946a.bindTooltip(
+                `<div>
+                     Landmark 81
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_eb7e912a482438e20bad6f491641e869 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_9e97ede89391ab473dc7ccfd35e8df17 = L.marker(
+                [10.775320701864004, 106.68662563770211],
+                {}
+            ).addTo(feature_group_eb7e912a482438e20bad6f491641e869);
+        
+    
+            var icon_7ab8dbd79fb71677d053a7c9b6908824 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_9e97ede89391ab473dc7ccfd35e8df17.setIcon(icon_7ab8dbd79fb71677d053a7c9b6908824);
+        
+    
+        var popup_7e5643c55563d158f1add393314f3dbc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_392037aca307f9d155d6f64b2cb9ba7d = $(`<div id="html_392037aca307f9d155d6f64b2cb9ba7d" style="width: 100.0%; height: 100.0%;"><b>Burning Monk</b><br>Attraction<br><a href='https://maps.app.goo.gl/xANq5iQ6nUGkEip16' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_7e5643c55563d158f1add393314f3dbc.setContent(html_392037aca307f9d155d6f64b2cb9ba7d);
+        
+
+        marker_9e97ede89391ab473dc7ccfd35e8df17.bindPopup(popup_7e5643c55563d158f1add393314f3dbc)
+        ;
+
+        
+    
+    
+            marker_9e97ede89391ab473dc7ccfd35e8df17.bindTooltip(
+                `<div>
+                     Burning Monk
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_02bf9b6776ced3acd6d86ede14dd70f2 = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_991ad8c0991348edddf0821e1918fec2 = L.marker(
+                [10.775312197113506, 106.70647150495576],
+                {}
+            ).addTo(feature_group_02bf9b6776ced3acd6d86ede14dd70f2);
+        
+    
+            var icon_0a25b338f45bfee0b9ea8c1eeabab093 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_991ad8c0991348edddf0821e1918fec2.setIcon(icon_0a25b338f45bfee0b9ea8c1eeabab093);
+        
+    
+        var popup_e3d906b412c9c90614454f6bdb87ad22 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_272a976243235fa8bc9af56d6477093a = $(`<div id="html_272a976243235fa8bc9af56d6477093a" style="width: 100.0%; height: 100.0%;"><b>Tran Hung Dao Statue</b><br>Attraction<br><a href='https://maps.app.goo.gl/JTAsRczQew5Q9LoW7' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_e3d906b412c9c90614454f6bdb87ad22.setContent(html_272a976243235fa8bc9af56d6477093a);
+        
+
+        marker_991ad8c0991348edddf0821e1918fec2.bindPopup(popup_e3d906b412c9c90614454f6bdb87ad22)
+        ;
+
+        
+    
+    
+            marker_991ad8c0991348edddf0821e1918fec2.bindTooltip(
+                `<div>
+                     Tran Hung Dao Statue
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_2898429a30a97a9e8217cd9e14a183af = L.featureGroup(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var marker_59b96c8bfe08b04e707e06c7beba1312 = L.marker(
+                [10.777016362513285, 106.69530597149293],
+                {}
+            ).addTo(feature_group_2898429a30a97a9e8217cd9e14a183af);
+        
+    
+            var icon_4ad99605b88b1f70d74ce005c9c0ab15 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_59b96c8bfe08b04e707e06c7beba1312.setIcon(icon_4ad99605b88b1f70d74ce005c9c0ab15);
+        
+    
+        var popup_e73f80318b07f4e2a5de398fc6dfc9f7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_76e358dd6783189270930d95f7f997ee = $(`<div id="html_76e358dd6783189270930d95f7f997ee" style="width: 100.0%; height: 100.0%;"><b>Independence Palace</b><br>Attraction<br><a href='https://maps.app.goo.gl/G1eJGCMUWf1eJwvd9' target='_blank'>Open in Google Maps</a></div>`)[0];
+            popup_e73f80318b07f4e2a5de398fc6dfc9f7.setContent(html_76e358dd6783189270930d95f7f997ee);
+        
+
+        marker_59b96c8bfe08b04e707e06c7beba1312.bindPopup(popup_e73f80318b07f4e2a5de398fc6dfc9f7)
+        ;
+
+        
+    
+    
+            marker_59b96c8bfe08b04e707e06c7beba1312.bindTooltip(
+                `<div>
+                     Independence Palace
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var layer_control_97b54096d96a4292a887e6366c1749a9 = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_3ff5a48be23a5d529f7e171a144836f4,
+                },
+                overlays :  {
+                    "Man Moi" : feature_group_102077b87d34066bd2b1e0d3c0524319,
+                    "Pizza 4Ps" : feature_group_717a072ff6d6772449d7294596fbff6a,
+                    "Bo Ne Ba Nui" : feature_group_e244e7b6f87b5f75bf828f489d2a5137,
+                    "Oc Oanh" : feature_group_b7240f69ce5b4d0c2cca54e6fb30ea15,
+                    "Taco Del Sol" : feature_group_abb93a05473be2e641b57d024eba1995,
+                    "Bep Me In" : feature_group_072655d890f184ac00417de47526b689,
+                    "Com Tam Ba Ghien " : feature_group_8eb9eed0d4f7e817062c534b0bb05040,
+                    "Ngam Caf\u00e9" : feature_group_70abb6d8b1dc9838ab7967ad4f412571,
+                    "Ban Xeo 46A" : feature_group_723490ce337f6f8c2f61c4edc650d36f,
+                    "Banh Mi Huynh Hoa" : feature_group_0367b3954973781ad9233a5adb1700e9,
+                    "Pho Phuong" : feature_group_6b597c85c618ab2c2bdac4d42abd7fd1,
+                    "Quan Thuy 94" : feature_group_b17a60b453cb3325d9ce4cce69a84187,
+                    "Quan Co Lieng" : feature_group_106197d336fd554f5f17f7f565c1a76d,
+                    "Pho Hoa Pasteur" : feature_group_b96d3c0ac9bd1ee68616c96944b5c83c,
+                    "Quan Ngon Bun Cha Hanoi" : feature_group_c4c9881349b462be5d88a2bac85f99be,
+                    "Bun Thit Nuong Cha Gio" : feature_group_4684af25fe4752fb73170d1da41c1007,
+                    "Com Tam Moc " : feature_group_fadef2e5979ed20dbc2650f61b1b9744,
+                    "House Of Merlin Bar" : feature_group_f92fe65a9c00e192c8b619663a129b0c,
+                    "Mille Mille" : feature_group_1795a5857c13892baa2f96a8dcbf012b,
+                    "Xliii Specialty Coffee" : feature_group_53ade914bf44fbf76861c6594ae00c74,
+                    "Bakes Pasteur" : feature_group_5d0a27577b982a43c9739c6dfeceb1dc,
+                    "Crab Shack" : feature_group_d94a2682448ef7125be361bc6b6e17ce,
+                    "Rue Miche" : feature_group_62b71d988cc37f659c19c32c64e8d4bc,
+                    "The Idiot" : feature_group_06e8b025a5781e08018205925f86bc42,
+                    "Seeson" : feature_group_3e524c3adc022fb2c38e4d9198ff24ec,
+                    "Ton That Thiep Street" : feature_group_898b73e81eca0a9f2d8a92a21747c8b0,
+                    "The New Playground" : feature_group_94c9ecc3b4d26a15f0a5911e6ddebe6f,
+                    "Tran Quoang Dieu Street" : feature_group_44b19f6b605d4cbec97625895a6a6ab7,
+                    "Saigon Centre" : feature_group_161c8df5de5b163f72c045f0ec602cdd,
+                    "Nguyen Trai" : feature_group_2ca76260a4eb09fe9d3fbaf12d1f68df,
+                    "Whose Studio" : feature_group_7d176bdb00e5b7ed29e8621dd914dbbd,
+                    "Saigon Central Market" : feature_group_6ae82ed373b3078b2c399c6542de4ce7,
+                    "Ben Thanh Market" : feature_group_143efb74021f28e8f808c1febb9f8fd9,
+                    "Cu Chi Tunnel" : feature_group_eb6c5ba124ec0cf5e1f246d5d837c7ad,
+                    "Book Street" : feature_group_20064491337a324deaa1cfaacfa5424c,
+                    "Hop On Hop Off Bus" : feature_group_75bd871313220197d7c1339d5ff3b83e,
+                    "Caf\u00e9 Apartments" : feature_group_e67b640e541a952ff495ba58f0ad75f7,
+                    "War Remnant Museum" : feature_group_879798380354a06dee5a727c22488750,
+                    "Notre Dame Cathedral" : feature_group_91feb75815d70cf60bb6f4a8f64e3bed,
+                    "Saigon Central Post Office" : feature_group_1e670e5dcb67738e4eb4eaf722c83869,
+                    "Saigon Opera House" : feature_group_bdc9460764952a108998fa407d115472,
+                    "Bui Vien Walking Street" : feature_group_d4d2164780f41294ec8cd14c67d4f30d,
+                    "Tan Dinh Pink Church" : feature_group_689693f7a6ff1bfc7b4bfccbca184a87,
+                    "Landmark 81" : feature_group_37a5d21b6ac450da3e9070dbbb7d38f1,
+                    "Burning Monk" : feature_group_eb7e912a482438e20bad6f491641e869,
+                    "Tran Hung Dao Statue" : feature_group_02bf9b6776ced3acd6d86ede14dd70f2,
+                    "Independence Palace" : feature_group_2898429a30a97a9e8217cd9e14a183af,
+                },
+            };
+            L.control.layers(
+                layer_control_97b54096d96a4292a887e6366c1749a9.base_layers,
+                layer_control_97b54096d96a4292a887e6366c1749a9.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+        
+    
+            var locate_control_d70956dd72056b1870cec5e63caf9b8b = L.control.locate(
+                {}
+            ).addTo(map_709d78e5755988ba2a330e640d2cb05b);
+            
+        
+</script>
+</html>
